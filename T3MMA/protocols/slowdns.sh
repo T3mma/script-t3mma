@@ -94,7 +94,7 @@ ini_slow() {
 
 	if [[ ! -e ${ADM_inst}/dns-server ]]; then
 		msg -ama " Downloading binary...."
-		if wget -O ${ADM_inst}/dns-server https://raw.githubusercontent.com/khaledagn/VPS-AGN_English_Official/master/LINKS-LIBRARIES/dns-server &>/dev/null; then
+		if wget -O ${ADM_inst}/dns-server https://github.com/T3mma/script-t3mma/blob/main/utils/dns-server &>/dev/null; then
 			chmod +x ${ADM_inst}/dns-server
 			msg -verd "[OK]"
 		else
