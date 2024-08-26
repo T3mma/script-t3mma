@@ -2,7 +2,7 @@
 clear
 clear
 declare -A cor=([0]="\033[1;37m" [1]="\033[1;34m" [2]="\033[1;31m" [3]="\033[1;33m" [4]="\033[1;32m")
-SCPdir="/etc/VPS-AGN"
+SCPdir="/etc/T3MMA"
 SCPfrm="${SCPdir}/tools" && [[ ! -d ${SCPfrm} ]] && exit
 SCPinst="${SCPdir}/protocols" && [[ ! -d ${SCPinst} ]] && exit
 
