@@ -155,7 +155,7 @@ dependencias() {
 }
 
 post_reboot() {
-  echo 'wget -O /root/install.sh "https://raw.githubusercontent.com/vpsvip7/VPS-AGN/master/installer/install-without-key.sh"; clear; sleep 2; chmod +x /root/install.sh; /root/install.sh --continue' >>/root/.bashrc
+  echo 'wget -O /root/install.sh "https://raw.githubusercontent.com/T3mma/script-t3mma/main/install.sh?token=GHSAT0AAAAAACWTZ57VRZC57SNQC6AV4YGCZWM76SA"; clear; sleep 2; chmod +x /root/install.sh; /root/install.sh --continue' >>/root/.bashrc
   title -verd "COMPLETED SYSTEM UPGRADE"
   print_center -ama "The installation will continue\nafter rebooting!!!"
   msg -bar
@@ -189,14 +189,14 @@ install_continue() {
   msg -bar3
   dependencias
   msg -bar3
-  print_center -azu "Removing obsolete packages"
+  print_center -azu "Removiendo paquetes obsoletos"
   apt autoremove -y &>/dev/null
   sleep 2
   tput cuu1 && tput dl1
   msg -bar
   print_center -ama "If some of the dependencies fail!!!\nwhen finished, you can try to install\nthe same manually using the following command\napt install package_name"
   msg -bar
-  read -t 60 -n 1 -rsp $'\033[1;39m       << Press enter to continue >>\n'
+  read -t 60 -n 1 -rsp $'\033[1;39m       << Presione Enter para continuar >>\n'
 }
 
 while :; do
@@ -219,15 +219,15 @@ done
 
 clear && clear
 msg -bar2
-echo -e " \e[5m\033[1;100m   =====>> ►► 👽 VPS-AGN - SCRIPT  👽 ◄◄ <<=====   \033[1;37m"
+echo -e " \e[5m\033[1;100m   =====>> ►► 👽 T3MMA - SCRIPT  👽 ◄◄ <<=====   \033[1;37m"
 msg -bar2
 print_center -ama "AVAILABLE SCRIPT LIST"
 msg -bar
 #-BASH SOPORTE ONLINE
-wget https://raw.githubusercontent.com/vpsvip7/VPS-AGN/master/LINKS-LIBRARIES/SPR.sh -O /usr/bin/SPR >/dev/null 2>&1
+wget https://raw.githubusercontent.com/vpsvip7/T3MMA/master/LINKS-LIBRARIES/SPR.sh -O /usr/bin/SPR >/dev/null 2>&1
 chmod +x /usr/bin/SPR
 
-#VPS-AGN 8.6 OFFICIAL
+#T3MMA 8.6 OFFICIAL
 install_official() {
   clear && clear
   msg -bar
@@ -236,19 +236,19 @@ install_official() {
   echo -e "$slogan"
   msg -bar
   clear && clear
-  mkdir /etc/VPS-AGN >/dev/null 2>&1
+  mkdir /etc/T3MMA >/dev/null 2>&1
   cd /etc
   wget https://raw.githubusercontent.com/vpsvip7/VPS-AGN/master/SCRIPT-v8.5x/VPS-AGN.tar.xz >/dev/null 2>&1
   tar -xf VPS-AGN.tar.xz >/dev/null 2>&1
   chmod +x VPS-AGN.tar.xz >/dev/null 2>&1
   rm -rf VPS-AGN.tar.xz
   cd
-  chmod -R 755 /etc/VPS-AGN
-  rm -rf /etc/VPS-AGN/MEUIPvps
-  echo "/etc/VPS-AGN/menu" >/usr/bin/menu && chmod +x /usr/bin/menu
-  echo "/etc/VPS-AGN/menu" >/usr/bin/VPSAGN && chmod +x /usr/bin/VPSAGN
+  chmod -R 755 /etc/T3MMA
+  rm -rf /etc/T3MMA/MEUIPvps
+  echo "/etc/T3MMA/menu" >/usr/bin/menu && chmod +x /usr/bin/menu
+  echo "/etc/T3MMA/menu" >/usr/bin/T3MMA && chmod +x /usr/bin/T3MMA
   wget https://raw.githubusercontent.com/vpsvip7/VPS-AGN/master/LINKS-LIBRARIES/monitor.sh -P /bin/
-  echo "$slogan" >/etc/VPS-AGN/message.txt
+  echo "$slogan" >/etc/T3MMA/message.txt
   [[ ! -d /usr/local/lib ]] && mkdir /usr/local/lib
   [[ ! -d /usr/local/lib/ubuntn ]] && mkdir /usr/local/lib/ubuntn
   [[ ! -d /usr/local/lib/ubuntn/apache ]] && mkdir /usr/local/lib/ubuntn/apache
@@ -258,15 +258,15 @@ install_official() {
   [[ ! -d /usr/share/mediaptre/local ]] && mkdir /usr/share/mediaptre/local
   [[ ! -d /usr/share/mediaptre/local/log ]] && mkdir /usr/share/mediaptre/local/log
   [[ ! -d /usr/share/mediaptre/local/log/lognull ]] && mkdir /usr/share/mediaptre/local/log/lognull
-  [[ ! -d /etc/VPS-AGN/B-VPS-AGNuser ]] && mkdir /etc/VPS-AGN/B-VPS-AGNuser
+  [[ ! -d /etc/T3MMA/B-T3MMAuser ]] && mkdir /etc/T3MMA/B-T3MMAuser
   [[ ! -d /usr/local/protec ]] && mkdir /usr/local/protec
   [[ ! -d /usr/local/protec/rip ]] && mkdir /usr/local/protec/rip
   [[ ! -d /etc/protecbin ]] && mkdir /etc/protecbin
   cd
-  [[ ! -d /etc/VPS-AGN/v2ray ]] && mkdir /etc/VPS-AGN/v2ray
-  [[ ! -d /etc/VPS-AGN/Slow ]] && mkdir /etc/VPS-AGN/Slow
-  [[ ! -d /etc/VPS-AGN/Slow/install ]] && mkdir /etc/VPS-AGN/Slow/install
-  [[ ! -d /etc/VPS-AGN/Slow/Key ]] && mkdir /etc/VPS-AGN/Slow/Key
+  [[ ! -d /etc/T3MMA/v2ray ]] && mkdir /etc/T3MMA/v2ray
+  [[ ! -d /etc/T3MMA/Slow ]] && mkdir /etc/T3MMA/Slow
+  [[ ! -d /etc/T3MMA/Slow/install ]] && mkdir /etc/T3MMA/Slow/install
+  [[ ! -d /etc/T3MMA/Slow/Key ]] && mkdir /etc/T3MMA/Slow/Key
   touch /usr/share/lognull &>/dev/null
   wget -O /bin/resetsshdrop https://raw.githubusercontent.com/vpsvip7/VPS-AGN/master/LINKS-LIBRARIES/resetsshdrop &>/dev/null
   chmod +x /bin/resetsshdrop
@@ -292,7 +292,7 @@ install_official() {
   echo 'echo -e "\t\033[91m   #     #  " ' >>.bashrc
   echo 'wget -O /etc/versin_script_new https://raw.githubusercontent.com/vpsvip7/VPS-AGN/master/SCRIPT-v8.5x/Version &>/dev/null' >>.bashrc
   echo 'echo "" ' >>.bashrc
-  echo 'mess1="$(less /etc/VPS-AGN/message.txt)" ' >>.bashrc
+  echo 'mess1="$(less /etc/T3MMA/message.txt)" ' >>.bashrc
   echo 'echo "" ' >>.bashrc
   echo 'echo -e "\t\033[92mRESELLER : $mess1 "' >>.bashrc
   echo 'echo -e "\t\e[1;33mVERSION: \e[1;31m$(cat /etc/versin_script_new)"' >>.bashrc
@@ -300,7 +300,7 @@ install_official() {
   echo 'echo -e "\t\033[97m BASH PANEL Escribe: sudo VPSAGN o menu "' >>.bashrc
   echo 'echo ""' >>.bashrc
   rm -rf /usr/bin/pytransform &>/dev/null
-  rm -rf VPS-AGN.sh
+  rm -rf T3MMA.sh
   rm -rf lista-arq
   service ssh restart &>/dev/null
   clear && clear
@@ -316,8 +316,8 @@ install_official() {
 echo -ne " \e[1;93m [\e[1;32m1\e[1;93m]\033[1;31m > \e[1;97m INSTALL 8.5x OFFICIAL \e[97m \n"
 msg -bar
 echo -ne "\033[1;97mEnter only the number according to your answer:\e[32m "
-read opcao
-case $opcao in
+read opcion
+case $opcion in
 1)
   install_official
   ;;
