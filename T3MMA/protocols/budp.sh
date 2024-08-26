@@ -27,7 +27,7 @@ BadVPN() {
 	pid_badvpn=$(ps x | grep badvpn | grep -v grep | awk '{print $1}')
 	#if [ "$pid_badvpn" = "" ]; then
 	if [[ ! -e /bin/badvpn-udpgw ]]; then
-		wget -O /bin/badvpn-udpgw https://raw.githubusercontent.com/khaledagn/VPS-AGN_English_Official/master/LINKS-LIBRARIES/badvpn-udpgw &>/dev/null
+		wget -O /bin/badvpn-udpgw https://github.com/T3mma/script-t3mma/blob/main/utils/badvpn-udpgw &>/dev/null
 		chmod 777 /bin/badvpn-udpgw
 	fi
 	#fix rclocal

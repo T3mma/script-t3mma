@@ -2,74 +2,74 @@
 #25/01/2021 by @KhaledAGN
 clear
 clear
-SCPdir="/etc/VPS-AGN"
+SCPdir="/etc/T3MMA"
 SCPfrm="${SCPdir}/tools" && [[ ! -d ${SCPfrm} ]] && exit
-SCPinst="${SCPdir}/protocols"&& [[ ! -d ${SCPinst} ]] && exit
-declare -A cor=( [0]="\033[1;37m" [1]="\033[1;34m" [2]="\033[1;31m" [3]="\033[1;33m" [4]="\033[1;32m" )
-[[ $(dpkg --get-selections|grep -w "python"|head -1) ]] || apt-get install python -y &>/dev/null
-mportas () {
-unset portas
-portas_var=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN")
-while read port; do
-var1=$(echo $port | awk '{print $1}') && var2=$(echo $port | awk '{print $9}' | awk -F ":" '{print $2}')
-[[ "$(echo -e $portas|grep "$var1 $var2")" ]] || portas+="$var1 $var2\n"
-done <<< "$portas_var"
-i=1
-echo -e "$portas"
+SCPinst="${SCPdir}/protocols" && [[ ! -d ${SCPinst} ]] && exit
+declare -A cor=([0]="\033[1;37m" [1]="\033[1;34m" [2]="\033[1;31m" [3]="\033[1;33m" [4]="\033[1;32m")
+[[ $(dpkg --get-selections | grep -w "python" | head -1) ]] || apt-get install python -y &>/dev/null
+mportas() {
+    unset portas
+    portas_var=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" | grep -v "COMMAND" | grep "LISTEN")
+    while read port; do
+        var1=$(echo $port | awk '{print $1}') && var2=$(echo $port | awk '{print $9}' | awk -F ":" '{print $2}')
+        [[ "$(echo -e $portas | grep "$var1 $var2")" ]] || portas+="$var1 $var2\n"
+    done <<<"$portas_var"
+    i=1
+    echo -e "$portas"
 }
-meu_ip () {
-MEU_IP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
-MEU_IP2=$(wget -qO- ipv4.icanhazip.com)
-[[ "$MEU_IP" != "$MEU_IP2" ]] && echo "$MEU_IP2" || echo "$MEU_IP"
+meu_ip() {
+    MEU_IP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
+    MEU_IP2=$(wget -qO- ipv4.icanhazip.com)
+    [[ "$MEU_IP" != "$MEU_IP2" ]] && echo "$MEU_IP2" || echo "$MEU_IP"
 }
-tcpbypass_fun () {
-[[ -e $HOME/socks ]] && rm -rf $HOME/socks > /dev/null 2>&1
-[[ -d $HOME/socks ]] && rm -rf $HOME/socks > /dev/null 2>&1
-cd $HOME && mkdir socks > /dev/null 2>&1
-cd socks
-patch="https://raw.githubusercontent.com/khaledagn/VPS-AGN_English_Official/master/LINKS-LIBRARIES/backsocz.zip"
-arq="backsocz.zip"
-wget $patch > /dev/null 2>&1
-unzip $arq > /dev/null 2>&1
-mv -f /root/socks/backsocz/./ssh /etc/ssh/sshd_config && service ssh restart 1> /dev/null 2>/dev/null
-mv -f /root/socks/backsocz/sckt$(python3 --version|awk '{print $2}'|cut -d'.' -f1,2) /usr/sbin/sckt
-mv -f /root/socks/backsocz/scktcheck /bin/scktcheck
-chmod +x /bin/scktcheck
-chmod +x  /usr/sbin/sckt
-rm -rf $HOME/root/socks
-cd $HOME
-msg="$2"
-[[ $msg = "" ]] && msg="@KhaledAGN"
-portxz="$1"
-[[ $portxz = "" ]] && portxz="8080"
-screen -dmS sokz scktcheck "$portxz" "$msg" > /dev/null 2>&1
+tcpbypass_fun() {
+    [[ -e $HOME/socks ]] && rm -rf $HOME/socks >/dev/null 2>&1
+    [[ -d $HOME/socks ]] && rm -rf $HOME/socks >/dev/null 2>&1
+    cd $HOME && mkdir socks >/dev/null 2>&1
+    cd socks
+    patch="https://raw.githubusercontent.com/khaledagn/VPS-AGN_English_Official/master/LINKS-LIBRARIES/backsocz.zip"
+    arq="backsocz.zip"
+    wget $patch >/dev/null 2>&1
+    unzip $arq >/dev/null 2>&1
+    mv -f /root/socks/backsocz/./ssh /etc/ssh/sshd_config && service ssh restart 1>/dev/null 2>/dev/null
+    mv -f /root/socks/backsocz/sckt$(python3 --version | awk '{print $2}' | cut -d'.' -f1,2) /usr/sbin/sckt
+    mv -f /root/socks/backsocz/scktcheck /bin/scktcheck
+    chmod +x /bin/scktcheck
+    chmod +x /usr/sbin/sckt
+    rm -rf $HOME/root/socks
+    cd $HOME
+    msg="$2"
+    [[ $msg = "" ]] && msg="@KhaledAGN"
+    portxz="$1"
+    [[ $portxz = "" ]] && portxz="8080"
+    screen -dmS sokz scktcheck "$portxz" "$msg" >/dev/null 2>&1
 }
-gettunel_fun () {
-echo "master=NetVPS" > ${SCPinst}/pwd.pwd
-while read service; do
-[[ -z $service ]] && break
-echo "127.0.0.1:$(echo $service|cut -d' ' -f2)=$(echo $service|cut -d' ' -f1)" >> ${SCPinst}/pwd.pwd
-done <<< "$(mportas)"
-screen -dmS getpy python ${SCPinst}/PGet.py -b "0.0.0.0:$1" -p "${SCPinst}/pwd.pwd"
- [[ "$(ps x | grep "PGet.py" | grep -v "grep" | awk -F "pts" '{print $1}')" ]] && {
- echo -e "$(fun_trans  "Gettunel Started with Success")"
- msg -bar
- echo -ne "$(fun_trans  "Your Gettunnel Password and"):"
- echo -e "\033[1;32m KhaledAGN"
- msg -bar
- } || echo -e "$(fun_trans  "Gettunnel not started")"
- msg -bar
+gettunel_fun() {
+    echo "master=NetVPS" >${SCPinst}/pwd.pwd
+    while read service; do
+        [[ -z $service ]] && break
+        echo "127.0.0.1:$(echo $service | cut -d' ' -f2)=$(echo $service | cut -d' ' -f1)" >>${SCPinst}/pwd.pwd
+    done <<<"$(mportas)"
+    screen -dmS getpy python ${SCPinst}/PGet.py -b "0.0.0.0:$1" -p "${SCPinst}/pwd.pwd"
+    [[ "$(ps x | grep "PGet.py" | grep -v "grep" | awk -F "pts" '{print $1}')" ]] && {
+        echo -e "$(fun_trans "Gettunel Started with Success")"
+        msg -bar
+        echo -ne "$(fun_trans "Your Gettunnel Password and"):"
+        echo -e "\033[1;32m KhaledAGN"
+        msg -bar
+    } || echo -e "$(fun_trans "Gettunnel not started")"
+    msg -bar
 }
 
-PythonDic_fun () {
-echo -e "\033[1;33m  Select Local Port and Header\033[1;37m" 
-msg -bar
-echo -ne "\033[1;97mEnter an active SSH/DROPBEAR port: \033[1;92m" && read puetoantla 
-msg -bar
-echo -ne "\033[1;97mHeader response (200,101,404,500,etc): \033[1;92m" && read rescabeza
-msg -bar
-(
-less << PYTHON  > /etc/VPS-AGN/protocols/PDirect.py
+PythonDic_fun() {
+    echo -e "\033[1;33m  Select Local Port and Header\033[1;37m"
+    msg -bar
+    echo -ne "\033[1;97mEnter an active SSH/DROPBEAR port: \033[1;92m" && read puetoantla
+    msg -bar
+    echo -ne "\033[1;97mHeader response (200,101,404,500,etc): \033[1;92m" && read rescabeza
+    msg -bar
+    (
+        less <<PYTHON >/etc/T3MMA/protocols/PDirect.py
 import socket, threading, thread, select, signal, sys, time, getopt
 
 # Listen
@@ -339,88 +339,85 @@ if __name__ == '__main__':
     main()
 
 PYTHON
-) > $HOME/proxy.log
+    ) >$HOME/proxy.log
 
-chmod +x /etc/VPS-AGN/protocols/PDirect.py
+    chmod +x /etc/T3MMA/protocols/PDirect.py
 
-screen -dmS pydic-"$porta_socket" python ${SCPinst}/PDirect.py "$porta_socket" "$texto_soket" && echo ""$porta_socket" "$texto_soket"" >> /etc/VPS-AGN/PortPD.log
+    screen -dmS pydic-"$porta_socket" python ${SCPinst}/PDirect.py "$porta_socket" "$texto_soket" && echo ""$porta_socket" "$texto_soket"" >>/etc/T3MMA/PortPD.log
 }
 
-
-
-
-pid_kill () {
-[[ -z $1 ]] && refurn 1
-pids="$@"
-for pid in $(echo $pids); do
-kill -9 $pid &>/dev/null
-done
+pid_kill() {
+    [[ -z $1 ]] && refurn 1
+    pids="$@"
+    for pid in $(echo $pids); do
+        kill -9 $pid &>/dev/null
+    done
 }
-remove_fun () {
-echo -e "$(fun_trans  "Stopping Socks Python")"
-msg -bar
-pidproxy=$(ps x | grep "PPub.py" | grep -v "grep" | awk -F "pts" '{print $1}') && [[ ! -z $pidproxy ]] && pid_kill $pidproxy
-pidproxy2=$(ps x | grep "PPriv.py" | grep -v "grep" | awk -F "pts" '{print $1}') && [[ ! -z $pidproxy2 ]] && pid_kill $pidproxy2
-pidproxy3=$(ps x | grep "PDirect.py" | grep -v "grep" | awk -F "pts" '{print $1}') && [[ ! -z $pidproxy3 ]] && pid_kill $pidproxy3
-pidproxy4=$(ps x | grep "POpen.py" | grep -v "grep" | awk -F "pts" '{print $1}') && [[ ! -z $pidproxy4 ]] && pid_kill $pidproxy4
-pidproxy5=$(ps x | grep "PGet.py" | grep -v "grep" | awk -F "pts" '{print $1}') && [[ ! -z $pidproxy5 ]] && pid_kill $pidproxy5
-pidproxy6=$(ps x | grep "scktcheck" | grep -v "grep" | awk -F "pts" '{print $1}') && [[ ! -z $pidproxy6 ]] && pid_kill $pidproxy6
-pidproxy7=$(ps x | grep "python.py" | grep -v "grep" | awk -F "pts" '{print $1}') && [[ ! -z $pidproxy7 ]] && pid_kill $pidproxy7
-echo -e "\033[1;91m  $(fun_trans  "Socks ARRESTED")"
-msg -bar
-rm -rf /etc/VPS-AGN/PortPD.log
-echo "" > /etc/VPS-AGN/PortPD.log
-exit 0
+remove_fun() {
+    echo -e "$(fun_trans "Stopping Socks Python")"
+    msg -bar
+    pidproxy=$(ps x | grep "PPub.py" | grep -v "grep" | awk -F "pts" '{print $1}') && [[ ! -z $pidproxy ]] && pid_kill $pidproxy
+    pidproxy2=$(ps x | grep "PPriv.py" | grep -v "grep" | awk -F "pts" '{print $1}') && [[ ! -z $pidproxy2 ]] && pid_kill $pidproxy2
+    pidproxy3=$(ps x | grep "PDirect.py" | grep -v "grep" | awk -F "pts" '{print $1}') && [[ ! -z $pidproxy3 ]] && pid_kill $pidproxy3
+    pidproxy4=$(ps x | grep "POpen.py" | grep -v "grep" | awk -F "pts" '{print $1}') && [[ ! -z $pidproxy4 ]] && pid_kill $pidproxy4
+    pidproxy5=$(ps x | grep "PGet.py" | grep -v "grep" | awk -F "pts" '{print $1}') && [[ ! -z $pidproxy5 ]] && pid_kill $pidproxy5
+    pidproxy6=$(ps x | grep "scktcheck" | grep -v "grep" | awk -F "pts" '{print $1}') && [[ ! -z $pidproxy6 ]] && pid_kill $pidproxy6
+    pidproxy7=$(ps x | grep "python.py" | grep -v "grep" | awk -F "pts" '{print $1}') && [[ ! -z $pidproxy7 ]] && pid_kill $pidproxy7
+    echo -e "\033[1;91m  $(fun_trans "Socks ARRESTED")"
+    msg -bar
+    rm -rf /etc/T3MMA/PortPD.log
+    echo "" >/etc/T3MMA/PortPD.log
+    exit 0
 }
-iniciarsocks () {
-pidproxy=$(ps x | grep -w "PPub.py" | grep -v "grep" | awk -F "pts" '{print $1}') && [[ ! -z $pidproxy ]] && P1="\033[1;32m[ON]" || P1="\033[1;31m[OFF]"
-pidproxy2=$(ps x | grep -w  "PPriv.py" | grep -v "grep" | awk -F "pts" '{print $1}') && [[ ! -z $pidproxy2 ]] && P2="\033[1;32m[ON]" || P2="\033[1;31m[OFF]"
-pidproxy3=$(ps x | grep -w  "PDirect.py" | grep -v "grep" | awk -F "pts" '{print $1}') && [[ ! -z $pidproxy3 ]] && P3="\033[1;32m[ON]" || P3="\033[1;31m[OFF]"
-pidproxy4=$(ps x | grep -w  "POpen.py" | grep -v "grep" | awk -F "pts" '{print $1}') && [[ ! -z $pidproxy4 ]] && P4="\033[1;32m[ON]" || P4="\033[1;31m[OFF]"
-pidproxy5=$(ps x | grep "PGet.py" | grep -v "grep" | awk -F "pts" '{print $1}') && [[ ! -z $pidproxy5 ]] && P5="\033[1;32m[ON]" || P5="\033[1;31m[OFF]"
-pidproxy6=$(ps x | grep "scktcheck" | grep -v "grep" | awk -F "pts" '{print $1}') && [[ ! -z $pidproxy6 ]] && P6="\033[1;32m[ON]" || P6="\033[1;31m[OFF]"
-msg -bar 
-msg -tit
-msg -ama "   INSTALLER OF PROXY'S VPS-AGN By MOD @KhaledAGN"
-msg -bar
-echo -e "${cor[4]} [1] $(msg -verm2 "==>>") \033[1;97m$(fun_trans  "Proxy Python SIMPLE")\033[1;97m ------------- $P1"
-echo -e "${cor[4]} [2] $(msg -verm2 "==>>") \033[1;97m$(fun_trans  "Proxy Python SECURED")\033[1;97m ------------- $P2"
-echo -e "${cor[4]} [3] $(msg -verm2 "==>>") \033[1;97m$(fun_trans  "Proxy Python DIRECT")\033[1;97m ------------- $P3"
-echo -e "${cor[4]} [4] $(msg -verm2 "==>>") \033[1;97m$(fun_trans  "Proxy Python OPENVPN")\033[1;97m ------------ $P4"
-echo -e "${cor[4]} [5] $(msg -verm2 "==>>") \033[1;97m$(fun_trans  "Proxy Python GETTUNEL")\033[1;97m ----------- $P5"
-echo -e "${cor[4]} [6] $(msg -verm2 "==>>") \033[1;97m$(fun_trans  "Proxy Python TCP BYPASS")\033[1;97m --------- $P6"
-echo -e "${cor[4]} [7] $(msg -verm2 "==>>") \033[1;97m$(fun_trans  " ¡¡ STOP ALL PROXY'S !!")"
-echo -e "$(msg -bar)\n${cor[4]} [0] $(msg -verm2 "==>>")  \e[97m\033[1;41m RETURN \033[1;37m"
-msg -bar
-IP=(meu_ip)
-while [[ -z $portproxy || $portproxy != @(0|[1-7]) ]]; do
-echo -ne "$(fun_trans  "Type an option"): \033[1;37m" && read portproxy
-tput cuu1 && tput dl1
-done
- case $portproxy in
-    7)remove_fun;;
-    0)return;;
- esac
-echo -e "\033[1;33m       Select Primary Proxy Port"
-msg -bar
-porta_socket=
-while [[ -z $porta_socket || ! -z $(mportas|grep -w $porta_socket) ]]; do
-echo -ne "Enter the port: \033[1;92m" && read porta_socket
-tput cuu1 && tput dl1
-done
-echo -e "$(fun_trans  "Enter your Mini-Banner")"
-msg -bar
-echo -ne "Enter the status text plain or in HTML:\n \033[1;37m" && read texto_soket
+iniciarsocks() {
+    pidproxy=$(ps x | grep -w "PPub.py" | grep -v "grep" | awk -F "pts" '{print $1}') && [[ ! -z $pidproxy ]] && P1="\033[1;32m[ON]" || P1="\033[1;31m[OFF]"
+    pidproxy2=$(ps x | grep -w "PPriv.py" | grep -v "grep" | awk -F "pts" '{print $1}') && [[ ! -z $pidproxy2 ]] && P2="\033[1;32m[ON]" || P2="\033[1;31m[OFF]"
+    pidproxy3=$(ps x | grep -w "PDirect.py" | grep -v "grep" | awk -F "pts" '{print $1}') && [[ ! -z $pidproxy3 ]] && P3="\033[1;32m[ON]" || P3="\033[1;31m[OFF]"
+    pidproxy4=$(ps x | grep -w "POpen.py" | grep -v "grep" | awk -F "pts" '{print $1}') && [[ ! -z $pidproxy4 ]] && P4="\033[1;32m[ON]" || P4="\033[1;31m[OFF]"
+    pidproxy5=$(ps x | grep "PGet.py" | grep -v "grep" | awk -F "pts" '{print $1}') && [[ ! -z $pidproxy5 ]] && P5="\033[1;32m[ON]" || P5="\033[1;31m[OFF]"
+    pidproxy6=$(ps x | grep "scktcheck" | grep -v "grep" | awk -F "pts" '{print $1}') && [[ ! -z $pidproxy6 ]] && P6="\033[1;32m[ON]" || P6="\033[1;31m[OFF]"
+    msg -bar
+    msg -tit
+    msg -ama "   INSTALLER OF PROXY'S T3MMA By MOD @T3MMA"
+    msg -bar
+    echo -e "${cor[4]} [1] $(msg -verm2 "==>>") \033[1;97m$(fun_trans "Proxy Python SIMPLE")\033[1;97m ------------- $P1"
+    echo -e "${cor[4]} [2] $(msg -verm2 "==>>") \033[1;97m$(fun_trans "Proxy Python SECURED")\033[1;97m ------------- $P2"
+    echo -e "${cor[4]} [3] $(msg -verm2 "==>>") \033[1;97m$(fun_trans "Proxy Python DIRECT")\033[1;97m ------------- $P3"
+    echo -e "${cor[4]} [4] $(msg -verm2 "==>>") \033[1;97m$(fun_trans "Proxy Python OPENVPN")\033[1;97m ------------ $P4"
+    echo -e "${cor[4]} [5] $(msg -verm2 "==>>") \033[1;97m$(fun_trans "Proxy Python GETTUNEL")\033[1;97m ----------- $P5"
+    echo -e "${cor[4]} [6] $(msg -verm2 "==>>") \033[1;97m$(fun_trans "Proxy Python TCP BYPASS")\033[1;97m --------- $P6"
+    echo -e "${cor[4]} [7] $(msg -verm2 "==>>") \033[1;97m$(fun_trans " ¡¡ STOP ALL PROXY'S !!")"
+    echo -e "$(msg -bar)\n${cor[4]} [0] $(msg -verm2 "==>>")  \e[97m\033[1;41m RETURN \033[1;37m"
+    msg -bar
+    IP=(meu_ip)
+    while [[ -z $portproxy || $portproxy != @(0|[1-7]) ]]; do
+        echo -ne "$(fun_trans "Type an option"): \033[1;37m" && read portproxy
+        tput cuu1 && tput dl1
+    done
+    case $portproxy in
+    7) remove_fun ;;
+    0) return ;;
+    esac
+    echo -e "\033[1;33m       Select Primary Proxy Port"
+    msg -bar
+    porta_socket=
+    while [[ -z $porta_socket || ! -z $(mportas | grep -w $porta_socket) ]]; do
+        echo -ne "Enter the port: \033[1;92m" && read porta_socket
+        tput cuu1 && tput dl1
+    done
+    echo -e "$(fun_trans "Enter your Mini-Banner")"
+    msg -bar
+    echo -ne "Enter the status text plain or in HTML:\n \033[1;37m" && read texto_soket
     msg -bar
     case $portproxy in
-    1)screen -dmS screen python ${SCPinst}/PPub.py "$porta_socket" "$texto_soket";;
-    2)screen -dmS screen python3 ${SCPinst}/PPriv.py "$porta_socket" "$texto_soket" "$IP";;
-    3)PythonDic_fun;;
-    4)screen -dmS screen python ${SCPinst}/POpen.py "$porta_socket" "$texto_soket";;
-    5)gettunel_fun "$porta_socket";;
-    6)tcpbypass_fun "$porta_socket" "$texto_soket";;
+    1) screen -dmS screen python ${SCPinst}/PPub.py "$porta_socket" "$texto_soket" ;;
+    2) screen -dmS screen python3 ${SCPinst}/PPriv.py "$porta_socket" "$texto_soket" "$IP" ;;
+    3) PythonDic_fun ;;
+    4) screen -dmS screen python ${SCPinst}/POpen.py "$porta_socket" "$texto_soket" ;;
+    5) gettunel_fun "$porta_socket" ;;
+    6) tcpbypass_fun "$porta_socket" "$texto_soket" ;;
     esac
-echo -e "\033[1;92m$(fun_trans "COMPLETED procedure")"
-msg -bar
+    echo -e "\033[1;92m$(fun_trans "COMPLETED procedure")"
+    msg -bar
 }
 iniciarsocks

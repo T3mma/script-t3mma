@@ -13,8 +13,8 @@ _hora=$(printf '%(%D-%H:%M:%S)T')
 red=$(tput setaf 1)
 gren=$(tput setaf 2)
 yellow=$(tput setaf 3)
-SCPdir="/etc/VPS-AGN" && [[ ! -d ${SCPdir} ]] && exit 1
-DIR="/etc/VPS-AGN"
+SCPdir="/etc/T3MMA" && [[ ! -d ${SCPdir} ]] && exit 1
+DIR="/etc/T3MMA"
 SCPusr="${SCPdir}/controller"
 SCPfrm="${SCPdir}/tools"
 SCPinst="${SCPdir}/protocols"
@@ -38,10 +38,10 @@ msg() {
     [[ $v11 = $v22 ]] && vesaoSCT="\033[1;37mVersion\033[1;32m $v22 \033[1;31m]" || vesaoSCT="\033[1;31m($v22)\033[1;97m→\033[1;32m($v11)\033[1;31m  ]"
     aviso_bock() {
         echo 'echo -e "\033[1;91m———————————————\n       ¡LOCKED SCRIPT ! \n——————————————————————"' >/usr/bin/menu
-        echo 'echo -e "\033[1;91m——————————————\n       ¡LOCKED SCRIPT ! \n———————————————"' >/usr/bin/VPS-AGN
-        rm -rf /etc/VPS-AGN
+        echo 'echo -e "\033[1;91m——————————————\n       ¡LOCKED SCRIPT ! \n———————————————"' >/usr/bin/T3MMA
+        rm -rf /etc/T3MMA
     }
-    local colors="/etc/VPS-AGN/colors"
+    local colors="/etc/T3MMA/colors"
     if [[ ! -e $colors ]]; then
         COLOR[0]='\033[1;37m' #BRAN='\033[1;37m'
         COLOR[1]='\e[93m'     #RED='\e[31m'
@@ -88,7 +88,7 @@ canbio_color() {
     clear
     msg -bar2
     msg -tit
-    msg -ama "     VPS-AGN SCRIPT COLOR CONTROLLER"
+    msg -ama "     T3MMA SCRIPT COLOR CONTROLLER"
     msg -bar2
     msg -ama "$(fun_trans "Select 7 colors"): "
     echo -e '\033[1;37m [1] ###\033[0m'
@@ -105,7 +105,7 @@ canbio_color() {
         cores+="$corselect "
         corselect=0
     done
-    echo "$cores" >/etc/VPS-AGN/colors
+    echo "$cores" >/etc/T3MMA/colors
     msg -bar2
 }
 fun_trans() {
@@ -118,11 +118,11 @@ fun_trans() {
     [[ -z $LINGUAGE ]] && LINGUAGE=en
     [[ $LINGUAGE = "en" ]] && echo "$@" && return
     [[ ! -e /usr/bin/trans ]] && wget -O /usr/bin/trans https://raw.githubusercontent.com/vpsvip7/VPS-AGN/main/LINKS-LIBRARIES/trans &>/dev/null
-    [[ ! -e /etc/VPS-AGN/texto-mx ]] && touch /etc/VPS-AGN/texto-mx
-    source /etc/VPS-AGN/texto-mx
+    [[ ! -e /etc/T3MMA/texto-mx ]] && touch /etc/T3MMA/texto-mx
+    source /etc/T3MMA/texto-mx
     if [[ -z "$(echo ${texto[$@]})" ]]; then
         retorno="$(source trans -e bing -b es:${LINGUAGE} "$@" | sed -e 's/[^a-z0-9 -]//ig' 2>/dev/null)"
-        echo "texto[$@]='$retorno'" >>/etc/VPS-AGN/texto-mx
+        echo "texto[$@]='$retorno'" >>/etc/T3MMA/texto-mx
         echo "$retorno"
     else
         echo "${texto[$@]}"
@@ -130,7 +130,7 @@ fun_trans() {
 }
 function_verify() {
 
-    v1=$(curl -sSL "https://raw.githubusercontent.com/vpsvip7/VPS-AGN/main/SCRIPT-v8.5x/Version")
+    v1=$(curl -sSL "https://raw.githubusercontent.com/T3mma/script-t3mma/main/utils/version?token=GHSAT0AAAAAACWTZ57VQ62HEIP5BL4ZY7UUZWNCJJA")
     echo "$v1" >/etc/versin_script
 }
 atualiza_fun() {
@@ -172,7 +172,7 @@ atualiza_fun() {
         clear
         msg -bar
         msg -tit
-        echo -e "\033[1;91m      UPDATE VPS-AGN SCRIPT FILES"
+        echo -e "\033[1;91m      UPDATE T3MMA SCRIPT FILES"
         msg -bar2 && msg -ne "\033[1;93m          >>> ENTER THE KEY BELOW <<<\n   \033[1;37m" && read Key
         tput cuu1 && tput dl1
     done
@@ -189,7 +189,7 @@ atualiza_fun() {
     updatedb
     if [[ -e $HOME/lista-arq ]] && [[ ! $(cat $HOME/lista-arq | grep "Code de KEY Invalido!") ]]; then
         msg -bar2
-        msg -verd "    $(source trans -b es:es "Copied Files" | sed -e 's/[^a-z -]//ig'): \e[97m[\e[93mVPS-AGN #MOD\e[97m]"
+        msg -verd "    $(source trans -b es:es "Copied Files" | sed -e 's/[^a-z -]//ig'): \e[97m[\e[93mT3MMA #MOD\e[97m]"
         REQUEST=$(ofus "$Key" | cut -d'/' -f2)
         [[ ! -d ${SCPinstal} ]] && mkdir ${SCPinstal}
         pontos="."
@@ -262,7 +262,7 @@ funcao_idioma() {
         echo -ne "\033[1;37m$(fun_trans "  ► Select an Option"): " && read selection
         tput cuu1 && tput dl1
     done
-    [[ -e /etc/VPS-AGN/texto-mx ]] && rm /etc/VPS-AGN/texto-mx
+    [[ -e /etc/T3MMA/texto-mx ]] && rm /etc/T3MMA/texto-mx
     echo "$(echo ${idioma[$selection]} | cut -d' ' -f1)" >${SCPidioma}
 }
 menu_info() {
@@ -341,13 +341,13 @@ limpar_caches() {
 fun_autorun() {
     if [[ -e /etc/bash.bashrc-bakup ]]; then
         mv -f /etc/bash.bashrc-bakup /etc/bash.bashrc
-        cat /etc/bash.bashrc | grep -v "/etc/VPS-AGN/menu" >/tmp/bash
+        cat /etc/bash.bashrc | grep -v "/etc/T3MMA/menu" >/tmp/bash
         mv -f /tmp/bash /etc/bash.bashrc
         msg -ama "$(fun_trans "SUCCESSFULLY REMOVED")"
         msg -bar
     elif [[ -e /etc/bash.bashrc ]]; then
         cat /etc/bash.bashrc | grep -v /bin/menu >/etc/bash.bashrc.2
-        echo '/etc/VPS-AGN/menu' >>/etc/bash.bashrc.2
+        echo '/etc/T3MMA/menu' >>/etc/bash.bashrc.2
         cp /etc/bash.bashrc /etc/bash.bashrc-bakup
         mv -f /etc/bash.bashrc.2 /etc/bash.bashrc
         msg -ama "$(fun_trans "AUTO INITIALIZE ADDED")"
@@ -377,19 +377,19 @@ fun_bar() {
     sleep 1s
 }
 meu_ip() {
-    if [[ -e /etc/VPS-AGN/MEUIPvps ]]; then
-        echo "$(cat /etc/VPS-AGN/MEUIPvps)"
+    if [[ -e /etc/T3MMA/MEUIPvps ]]; then
+        echo "$(cat /etc/T3MMA/MEUIPvps)"
     else
         MEU_IP=$(wget -qO- ifconfig.me)
-        echo "$MEU_IP" >/etc/VPS-AGN/MEUIPvps
+        echo "$MEU_IP" >/etc/T3MMA/MEUIPvps
     fi
 }
 fun_ip() {
-    if [[ -e /etc/VPS-AGN/MEUIPvps ]]; then
-        IP="$(cat /etc/VPS-AGN/MEUIPvps)"
+    if [[ -e /etc/T3MMA/MEUIPvps ]]; then
+        IP="$(cat /etc/T3MMA/MEUIPvps)"
     else
         MEU_IP=$(wget -qO- ifconfig.me)
-        echo "$MEU_IP" >/etc/VPS-AGN/MEUIPvps
+        echo "$MEU_IP" >/etc/T3MMA/MEUIPvps
     fi
 }
 fun_eth() {
@@ -1132,7 +1132,7 @@ monservi_fun() {
     PIDVRF3="$(ps aux | grep "${SCPdir}/menu monitorservi" | grep -v grep | awk '{print $2}')"
     PIDVRF5="$(ps aux | grep "${SCPdir}/menu moni2" | grep -v grep | awk '{print $2}')"
     if [[ -z $PIDVRF3 ]]; then
-        sed -i '5a\screen -dmS very3 /etc/VPS-AGN/menu monitorservi' /bin/resetsshdrop
+        sed -i '5a\screen -dmS very3 /etc/T3MMA/menu monitorservi' /bin/resetsshdrop
         msg -bar
         echo -e "\033[1;34m          ¿Monitor SSH/SSHD Protocol?"
         msg -bar
@@ -1223,19 +1223,19 @@ if [[ "$1" = "moni2" ]]; then
     exit
 fi
 SSHN="$(grep -c home /etc/passwd)"
-echo "${SSHN}" | bc >/etc/VPS-AGN/controller/SSH20.log
-SSH3="$(less /etc/VPS-AGN/controller/SSH20.log)"
+echo "${SSHN}" | bc >/etc/T3MMA/controller/SSH20.log
+SSH3="$(less /etc/T3MMA/controller/SSH20.log)"
 SSH4="$(echo $SSH3)"
 user_info=$(cd /usr/local/shadowsocksr &>/dev/null && python mujson_mgr.py -l)
 user_total=$(echo "${user_info}" | wc -l)
-[[ ! -e /etc/VPS-AGN/RegV2ray ]] && touch /etc/VPS-AGN/RegV2ray
-vray=$(cat /etc/VPS-AGN/RegV2ray | wc -l)
+[[ ! -e /etc/T3MMA/RegV2ray ]] && touch /etc/T3MMA/RegV2ray
+vray=$(cat /etc/T3MMA/RegV2ray | wc -l)
 on="\033[1;92m[ON🔵]" && off="\033[1;31m[OFF🔴]"
 echo -e "\033[1;97m   Total:\033[1;92m $SSH4 \033[1;97m   Vencidos:\033[1;92m $user_total \033[1;97m  V2RAY REG:\e[32m $vray"
 VERY="$(ps aux | grep "${SCPusr}/usercodes verificar" | grep -v grep)"
 VERY2="$(ps aux | grep "${SCPusr}/usercodes desbloqueo" | grep -v grep)"
 VERY3="$(ps aux | grep "${SCPdir}/menu monitorservi" | grep -v grep)"
-limseg="$(less /etc/VPS-AGN/controller/tiemlim.log)"
+limseg="$(less /etc/T3MMA/controller/tiemlim.log)"
 [[ -z ${VERY} ]] && verificar="\033[1;31m[OFF🔴]" || verificar="\033[1;32m[ON🔵] "
 [[ -z ${VERY2} ]] && desbloqueo="\033[1;31m[OFF🔴]" || desbloqueo="\033[1;32m[ON🔵] "
 [[ -z ${VERY3} ]] && monitorservi="\033[1;31m[OFF🔴]" || monitorservi="\033[1;32m[ON🔵]"

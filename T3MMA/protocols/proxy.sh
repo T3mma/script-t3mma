@@ -1,106 +1,105 @@
 #!/bin/bash
- clear
- 
- SCPinst="/etc/VPS-AGN/protocols"
- mportas () {
- unset portas
- portas_var=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN")
- while read port; do
- var1=$(echo $port | awk '{print $1}') && var2=$(echo $port | awk '{print $9}' | awk -F ":" '{print $2}')
- [[ "$(echo -e $portas|grep "$var1 $var2")" ]] || portas+="$var1 $var2\n"
- done <<< "$portas_var"
- i=1
- echo -e "$portas"
- }
- BARRA="\e[0;31m=====================================================\e[0m"
- 
- pid_kill () {
- 	[[ -z $1 ]] && refurn 1
- 	pids="$@"
- 	for pid in $(echo $pids); do
- 		kill -9 $pid &>/dev/null
- 	done
-  }
- 
- det_py(){
- 	pidproxy3=$(ps x | grep "lacasitamx.py" | grep -v "grep" | awk -F "pts" '{print $1}') && [[ ! -z $pidproxy3 ]] && pid_kill $pidproxy3
- 	echo -e "\033[1;91m  SOCKS ARRESTED"
- 	rm /etc/VPS-AGN/PortPD.log &>/dev/null
- 	rm -rf /etc/VPS-AGN/protocols/lacasitamx.py
- 	
- 	}
- 
- 
- pytho_py(){
- clear
- echo ""
- if [[ ! -e /etc/VPS-AGN/fix ]]; then
- 		echo ""
- ins(){
- apt-get install python -y 
- apt-get install python-pip -y
- }
- ins &>/dev/null && echo -e "INSTALLING FIXES" | pv -qL 40
- sleep 1.s
- [[ ! -e /etc/VPS-AGN/fix ]] && touch /etc/VPS-AGN/fix
- else
- echo ""
- fi
- clear
- echo ""
- echo ""
- msg -tit
- echo -e "$BARRA"
- echo -e "\033[1;31m  HTTP | PYTHON | CUSTOM\033[0m"
- echo -e "$BARRA"
- #puerto a usar para proxy python
- while true; do
- 	echo -ne "\033[1;37m"
-     read -p " WRITE YOUR PORT: " proxycolor
- 	echo -e ""
-     [[ $(mportas|grep -w "$proxycolor") ]] || break
-     echo -e " ESTE PUERTO YA ESTÁ EN USO"
-     unset proxycolor
-     done
-     #puerto local
-    echo -e "$BARRA" 
-     while true; do
-  		
-          echo -ne "\033[1;36m"
-          read -p " Enter the local port (22|443|80): " PORTLOC
- 		 echo ""
-          if [[ ! -z $PORTLOC ]]; then
-              if [[ $(echo $PORTLOC|grep [0-9]) ]]; then
-                 [[ $(mportas|grep $PORTLOC|head -1) ]] && break || echo -e "ESTE PUERTO NO EXISTE"
-              fi
-          fi
-          done
-  #        
- portlocal="$(mportas|grep $PORTLOC|awk '{print $2}'|head -1)"
- echo -e "$BARRA"
- read -p " Write the HTTP Response? (101|200|300): " encabezad
- tput cuu1 && tput dl1
-      if [[ -z $encabezad ]]; then
-         encabezad="200"
-         echo -e "	\e[31mResponse Default:\033[1;32m ${encabezad}"
-     else
-         echo -e "	\e[31mResponse Elegido:\033[1;32m ${encabezad}"
-     fi
- echo -e "$BARRA"
- echo -ne " Enter a text for the status in HTML:\n \033[1;37m" && read mensage
- tput cuu1 && tput dl1
-      if [[ -z $mensage ]]; then
-         mensage="@lacasitamx"
-         echo -e "	\e[31mMensage Default: \033[1;32m${mensage} "
-     else
-         echo -e "	\e[31mMensage: \033[1;32m ${mensage}"
-     fi
-     echo -e "$BARRA"
-     [[ ! -e /etc/VPS-AGN/protocols/lacasitamx.py ]] && rm -rf /etc/VPS-AGN/protocols/lacasitamx.py
- #
- 	# Initializing or Proxy
- 	(
- 	less << CPM > /etc/VPS-AGN/protocols/lacasitamx.py
+clear
+
+SCPinst="/etc/T3MMA/protocols"
+mportas() {
+    unset portas
+    portas_var=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" | grep -v "COMMAND" | grep "LISTEN")
+    while read port; do
+        var1=$(echo $port | awk '{print $1}') && var2=$(echo $port | awk '{print $9}' | awk -F ":" '{print $2}')
+        [[ "$(echo -e $portas | grep "$var1 $var2")" ]] || portas+="$var1 $var2\n"
+    done <<<"$portas_var"
+    i=1
+    echo -e "$portas"
+}
+BARRA="\e[0;31m=====================================================\e[0m"
+
+pid_kill() {
+    [[ -z $1 ]] && refurn 1
+    pids="$@"
+    for pid in $(echo $pids); do
+        kill -9 $pid &>/dev/null
+    done
+}
+
+det_py() {
+    pidproxy3=$(ps x | grep "lacasitamx.py" | grep -v "grep" | awk -F "pts" '{print $1}') && [[ ! -z $pidproxy3 ]] && pid_kill $pidproxy3
+    echo -e "\033[1;91m  SOCKS ARRESTED"
+    rm /etc/T3MMA/PortPD.log &>/dev/null
+    rm -rf /etc/T3MMA/protocols/lacasitamx.py
+
+}
+
+pytho_py() {
+    clear
+    echo ""
+    if [[ ! -e /etc/T3MMA/fix ]]; then
+        echo ""
+        ins() {
+            apt-get install python -y
+            apt-get install python-pip -y
+        }
+        ins &>/dev/null && echo -e "INSTALLING FIXES" | pv -qL 40
+        sleep 1.s
+        [[ ! -e /etc/T3MMA/fix ]] && touch /etc/T3MMA/fix
+    else
+        echo ""
+    fi
+    clear
+    echo ""
+    echo ""
+    msg -tit
+    echo -e "$BARRA"
+    echo -e "\033[1;31m  HTTP | PYTHON | CUSTOM\033[0m"
+    echo -e "$BARRA"
+    #puerto a usar para proxy python
+    while true; do
+        echo -ne "\033[1;37m"
+        read -p " WRITE YOUR PORT: " proxycolor
+        echo -e ""
+        [[ $(mportas | grep -w "$proxycolor") ]] || break
+        echo -e " ESTE PUERTO YA ESTÁ EN USO"
+        unset proxycolor
+    done
+    #puerto local
+    echo -e "$BARRA"
+    while true; do
+
+        echo -ne "\033[1;36m"
+        read -p " Enter the local port (22|443|80): " PORTLOC
+        echo ""
+        if [[ ! -z $PORTLOC ]]; then
+            if [[ $(echo $PORTLOC | grep [0-9]) ]]; then
+                [[ $(mportas | grep $PORTLOC | head -1) ]] && break || echo -e "ESTE PUERTO NO EXISTE"
+            fi
+        fi
+    done
+    #
+    portlocal="$(mportas | grep $PORTLOC | awk '{print $2}' | head -1)"
+    echo -e "$BARRA"
+    read -p " Write the HTTP Response? (101|200|300): " encabezad
+    tput cuu1 && tput dl1
+    if [[ -z $encabezad ]]; then
+        encabezad="200"
+        echo -e "	\e[31mResponse Default:\033[1;32m ${encabezad}"
+    else
+        echo -e "	\e[31mResponse Elegido:\033[1;32m ${encabezad}"
+    fi
+    echo -e "$BARRA"
+    echo -ne " Enter a text for the status in HTML:\n \033[1;37m" && read mensage
+    tput cuu1 && tput dl1
+    if [[ -z $mensage ]]; then
+        mensage="@lacasitamx"
+        echo -e "	\e[31mMensage Default: \033[1;32m${mensage} "
+    else
+        echo -e "	\e[31mMensage: \033[1;32m ${mensage}"
+    fi
+    echo -e "$BARRA"
+    [[ ! -e /etc/T3MMA/protocols/lacasitamx.py ]] && rm -rf /etc/T3MMA/protocols/lacasitamx.py
+    #
+    # Initializing or Proxy
+    (
+        less <<CPM >/etc/T3MMA/protocols/lacasitamx.py
  # -*- coding: utf-8 -*-
  import socket, threading, thread, select, signal, sys, time, getopt
  LISTENING_ADDR = '0.0.0.0'
@@ -303,27 +302,27 @@
  if __name__ == '__main__':
      main()
 CPM
- ) > $HOME/proxy.log &
- 
- chmod +x /etc/VPS-AGN/protocols/lacasitamx.py &>/dev/nulll
- 
- screen -dmS pydic-"$proxycolor" python ${SCPinst}/lacasitamx.py "$proxycolor" "$mensage" && echo ""$proxycolor" "$mensage"" >> /etc/VPS-AGN/PortPD.log
- }
- 
- clear
- echo -e "$BARRA"
- msg -tit
- echo -e "$BARRA"
- pidproxy=$(ps x | grep -w  "lacasitamx.py" | grep -v "grep" | awk -F "pts" '{print $1}') && [[ ! -z $pidproxy ]] && plox="\e[1;32m[ON]" || plox="\e[1;31m[OFF]"
- #
- echo -e "\e[1;33m [1] \e[1;31m > \e[1;36mHTTP | PYTHON | CUSTOM $plox\e[0m"
- echo -e "\e[1;33m [2] \e[1;31m > \e[1;31mUNINSTALL RESOURCE\e[0m"
- echo -e "\e[1;33m [0] \e[1;31m > \e[1;37mRETURN\e[0m"
- echo -e "$BARRA"
- read -p "SELECT AN OPTION : " pix
- case $pix in
- 0) ;;
- 1) pytho_py ;;
- 2) det_py ;;
- esac
- # 
+    ) >$HOME/proxy.log &
+
+    chmod +x /etc/T3MMA/protocols/lacasitamx.py &>/dev/nulll
+
+    screen -dmS pydic-"$proxycolor" python ${SCPinst}/lacasitamx.py "$proxycolor" "$mensage" && echo ""$proxycolor" "$mensage"" >>/etc/T3MMA/PortPD.log
+}
+
+clear
+echo -e "$BARRA"
+msg -tit
+echo -e "$BARRA"
+pidproxy=$(ps x | grep -w "lacasitamx.py" | grep -v "grep" | awk -F "pts" '{print $1}') && [[ ! -z $pidproxy ]] && plox="\e[1;32m[ON]" || plox="\e[1;31m[OFF]"
+#
+echo -e "\e[1;33m [1] \e[1;31m > \e[1;36mHTTP | PYTHON | CUSTOM $plox\e[0m"
+echo -e "\e[1;33m [2] \e[1;31m > \e[1;31mUNINSTALL RESOURCE\e[0m"
+echo -e "\e[1;33m [0] \e[1;31m > \e[1;37mRETURN\e[0m"
+echo -e "$BARRA"
+read -p "SELECT AN OPTION : " pix
+case $pix in
+0) ;;
+1) pytho_py ;;
+2) det_py ;;
+esac
+#
