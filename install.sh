@@ -238,10 +238,10 @@ install_official() {
   clear && clear
   mkdir /etc/T3MMA >/dev/null 2>&1
   cd /etc
-  wget https://raw.githubusercontent.com/vpsvip7/VPS-AGN/master/SCRIPT-v8.5x/VPS-AGN.tar.xz >/dev/null 2>&1
-  tar -xf VPS-AGN.tar.xz >/dev/null 2>&1
-  chmod +x VPS-AGN.tar.xz >/dev/null 2>&1
-  rm -rf VPS-AGN.tar.xz
+  wget https://github.com/T3mma/script-t3mma/blob/main/T3MMA.tar >/dev/null 2>&1
+  tar -xf T3MMA.tar >/dev/null 2>&1
+  chmod +x T3MMA.tar >/dev/null 2>&1
+  rm -rf T3MMA.tar
   cd
   chmod -R 755 /etc/T3MMA
   rm -rf /etc/T3MMA/MEUIPvps
