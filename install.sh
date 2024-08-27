@@ -238,13 +238,13 @@ install_official() {
   clear && clear
   mkdir /etc/T3MMA >/dev/null 2>&1
   cd /etc
-  wget https://github.com/T3mma/script-t3mma/blob/main/T3MMA.tar.xz >/dev/null 2>&1
+  wget https://github.com/T3mma/script-t3mma/raw/main/T3MMA.tar.xz -O T3MMA.tar.xz >/dev/null 2>&1
   tar -xf T3MMA.tar.xz >/dev/null 2>&1
   chmod +x T3MMA.tar.xz >/dev/null 2>&1
   rm -rf T3MMA.tar.xz
   cd
   chmod -R 755 /etc/T3MMA
-  #rm -rf /etc/T3MMA/MEUIPvps
+  rm -rf /etc/T3MMA/MEUIPvps
   echo "/etc/T3MMA/menu" >/usr/bin/menu && chmod +x /usr/bin/menu
   echo "/etc/T3MMA/menu" >/usr/bin/T3MMA && chmod +x /usr/bin/T3MMA
   wget https://raw.githubusercontent.com/T3mma/script-t3mma/main/utils/monitor.sh -P /bin/
