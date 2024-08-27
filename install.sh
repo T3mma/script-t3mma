@@ -164,16 +164,16 @@ post_reboot() {
 install_start() {
   msg -bar
 
-  echo -e "\e[1;97m           \e[5m\033[1;100m   SYSTEM UPDATE   \033[1;37m"
+  echo -e "\e[1;97m           \e[5m\033[1;100m   Actualización del Sistema   \033[1;37m"
   msg -bar
   print_center -ama "Systema Actualizado.\n casi listo.\n"
   msg -bar3
-  msg -ne "\n Vamos a  continue? [Y/N]: "
+  msg -ne "\n Vamos a  continuar? [Y/N]: "
   read opcion
   [[ "$opcion" != @(y|Y) ]] && stop_install
   clear && clear
   msg -bar
-  echo -e "\e[1;97m           \e[5m\033[1;100m   SYSTEMA UPDATE   \033[1;37m"
+  echo -e "\e[1;97m           \e[5m\033[1;100m   Actualización del Sistema   \033[1;37m"
   msg -bar
   os_system
   apt update -y
@@ -182,7 +182,7 @@ install_start() {
 install_continue() {
   os_system
   msg -bar
-  echo -e "      \e[5m\033[1;100m   COMPLETANDO PAQUETES FOR THE SCRIPT   \033[1;37m"
+  echo -e "      \e[5m\033[1;100m   COMPLETANDO PAQUETES PARA EL SCRIPT   \033[1;37m"
   msg -bar
   print_center -ama "$distro $vercion"
   print_center -verd "INSTALANDO DEPENDENCIAS"
@@ -194,14 +194,14 @@ install_continue() {
   sleep 2
   tput cuu1 && tput dl1
   msg -bar
-  print_center -ama "If some of the dependencies fail!!!\nwhen finished, you can try to install\nthe same manually using the following command\napt install package_name"
+  print_center -ama "Si alguna dependencia falla!!!\nal finalizar, puedes probar instalándolo\nmanualmente utilizando el siguiente comando\napt install package_name"
   msg -bar
   read -t 60 -n 1 -rsp $'\033[1;39m       << Presione Enter para continuar >>\n'
 }
 
 while :; do
   case $1 in
-  -s | --start) install_start && post_reboot && time_reboot "15" ;;
+  -s | --start) install_start && post_reboot && time_reboot "5" ;;
   -c | --continue)
     #rm /root/install-without-key.sh &>/dev/null
     sed -i '/installer/d' /root/.bashrc
@@ -238,10 +238,10 @@ install_official() {
   clear && clear
   mkdir /etc/T3MMA >/dev/null 2>&1
   cd /etc
-  wget https://github.com/T3mma/script-t3mma/blob/main/T3MMA.tar >/dev/null 2>&1
-  tar -xf T3MMA.tar >/dev/null 2>&1
-  chmod +x T3MMA.tar >/dev/null 2>&1
-  rm -rf T3MMA.tar
+  wget https://github.com/T3mma/script-t3mma/blob/main/T3MMA.tar.xz >/dev/null 2>&1
+  tar -xf T3MMA.tar.xz >/dev/null 2>&1
+  chmod +x T3MMA.tar.xz >/dev/null 2>&1
+  rm -rf T3MMA.tar.xz
   cd
   chmod -R 755 /etc/T3MMA
   rm -rf /etc/T3MMA/MEUIPvps
@@ -305,7 +305,7 @@ install_official() {
   service ssh restart &>/dev/null
   clear && clear
   msg -bar
-  echo -e "\e[1;92m             >> INSTALACION LISTA <<" && msg bar2
+  echo -e "\e[1;92m             >> INSTALACIÓN LISTA <<" && msg bar2
   echo -e "      PARA INGRESAR ESCRIBIR 👇🏻👇🏻 "
   echo -e "                      \033[1;41m  menu  \033[0;37m" && msg -bar2
 }
@@ -313,7 +313,7 @@ install_official() {
 #MENUS
 /bin/cp /etc/skel/.bashrc ~/
 /bin/cp /etc/skel/.bashrc /etc/bash.bashrc
-echo -ne " \e[1;93m [\e[1;32m1\e[1;93m]\033[1;31m > \e[1;97m INSTALL 8.5x OFFICIAL \e[97m \n"
+echo -ne " \e[1;93m [\e[1;32m1\e[1;93m]\033[1;31m > \e[1;97m INSTALL OFFICIAL \e[97m \n"
 msg -bar
 echo -ne "\033[1;97mEnter only the number according to your answer:\e[32m "
 read opcion
