@@ -4,7 +4,7 @@ clear
 clear
 # DIRECCIONES DE CARPETAS Y ARCHIVOS
 
-SCPdir="/etc/VPS-AGN" && [[ ! -d ${SCPdir} ]] && exit 1
+SCPdir="/etc/T3MMA" && [[ ! -d ${SCPdir} ]] && exit 1
 SCPusr="${SCPdir}/controller" && [[ ! -d ${SCPusr} ]] && mkdir ${SCPusr}
 SCPfrm="${SCPdir}/tools" && [[ ! -d ${SCPfrm} ]] && mkdir ${SCPfrm}
 SCPinst="${SCPdir}/protocols" && [[ ! -d ${SCPfrm} ]] && mkdir ${SCPfrm}
@@ -33,7 +33,7 @@ USRdatacredi="/etc/BOT-C2/creditos"
 clear
 msg -bar
 msg -tit
-msg -ama "      ## MANAGEMENT BOT | VPS-AGN  ##  \033[1;31m"
+msg -ama "      ## MANAGEMENT BOT | T3MMA  ##  \033[1;31m"
 msg -bar
 if [[ $1 = "id" || -z $(ps aux | grep -v grep | grep -w "ADMbot.sh" | grep dmS | awk '{print $2}') ]]; then
 	[[ -z $2 ]] && echo -ne " \033[1;96m #Enter the BOT Token \033[0;92m \nTOKEN:  \033[0;97m" && read TOKEN || TOKEN="$2"
@@ -56,7 +56,7 @@ else
 	exit 0
 fi
 LINE='━━━━━━━━━━━━━━━━━━━━'
-USRdatabase="/etc/VPS-AGN/VPS-AGNuser"
+USRdatabase="/etc/T3MMA/T3MMAuser"
 #IMPORTANDO API
 source ShellBot.sh
 ShellBot.init --token "$TOKEN"
@@ -168,13 +168,13 @@ mostrar_usuarios() {
 }
 # DEFINE UM IP
 meu_ip() {
-	if [[ -e /etc/VPS-AGN/MEUIPvps ]]; then
-		echo "$(cat /etc/VPS-AGN/MEUIPvps)"
+	if [[ -e /etc/T3MMA/MEUIPvps ]]; then
+		echo "$(cat /etc/T3MMA/MEUIPvps)"
 	else
 		MEU_IP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127 \.[0-9]{1,3} \.[0-9]{1,3} \.[0-9]{1,3}' | grep -o -E '[0-9]{1,3} \.[0-9]{1,3} \.[0-9]{1,3} \.[0-9]{1,3}' | head -1)
 		MEU_IP2=$(wget -qO- ipv4.icanhazip.com)
 		[[ "$MEU_IP" != "$MEU_IP2" ]] && echo "$MEU_IP2" || echo "$MEU_IP"
-		echo "$MEU_IP" >/etc/VPS-AGN/MEUIPvps
+		echo "$MEU_IP" >/etc/T3MMA/MEUIPvps
 	fi
 }
 # USUARIO BLOCK
@@ -185,8 +185,8 @@ blockfun() {
 	bot_retorno+="_--If you are ADMIN enter your credentials--_ \n"
 	bot_retorno+="$LINE \n"
 	ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-	--text "$(echo -e $bot_retorno)" \
-	--parse_mode markdown
+		--text "$(echo -e $bot_retorno)" \
+		--parse_mode markdown
 	return 0
 }
 # SISTEMA DE LOGUIN
@@ -200,8 +200,8 @@ ativarid_fun() {
 		bot_retorno+="⚙️ Main Command: * /menu * \n"
 		bot_retorno+="$LINE \n"
 		ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-		--text "$(echo -e $bot_retorno)" \
-		--parse_mode markdown
+			--text "$(echo -e $bot_retorno)" \
+			--parse_mode markdown
 		return 0
 	elif [[ $1 = ${USERLIB} ]] && [[ $2 = ${PASSLIB} ]]; then
 		[[ -z $LIBERADOS ]] && LIBERADOS="${3}" || LIBERADOS="${LIBERADOS} ${3}"
@@ -213,8 +213,8 @@ ativarid_fun() {
 		bot_retorno+="⚙️ Main Command: * /menu * \n"
 		bot_retorno+="$LINE \n"
 		ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-		--text "$(echo -e $bot_retorno)" \
-		--parse_mode markdown
+			--text "$(echo -e $bot_retorno)" \
+			--parse_mode markdown
 		return 0
 	else
 		local bot_retorno+="$LINE \n"
@@ -224,8 +224,8 @@ ativarid_fun() {
 		bot_retorno+="_Wrong User/Password_ \n"
 		bot_retorno+="$LINE \n"
 		ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-		--text "$(echo -e $bot_retorno)" \
-		--parse_mode markdown
+			--text "$(echo -e $bot_retorno)" \
+			--parse_mode markdown
 		return 0
 	fi
 }
@@ -234,15 +234,15 @@ loguin_fun() {
 	bot_retorno+="USERS WITH ADMIN ACCESS \n"
 	bot_retorno+="$LINE \n"
 	ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-	--text "$(echo -e $bot_retorno)" \
-	--parse_mode markdown
+		--text "$(echo -e $bot_retorno)" \
+		--parse_mode markdown
 	for lines in $(echo $LIBERADOS); do
 		local bot_retorno+="$LINE \n"
 		bot_retorno2+="$Usuario ID: $lines \n"
 		bot_retorno+="$LINE \n"
 		ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-		--text "$(echo -e $bot_retorno2)" \
-		--parse_mode markdown
+			--text "$(echo -e $bot_retorno2)" \
+			--parse_mode markdown
 	done
 	return 0
 }
@@ -272,8 +272,8 @@ infovps() {
 	done <<<"$(mine_port)"
 	bot_retorno+="$LINE \n"
 	ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-	--text "$(echo -e $bot_retorno)" \
-	--parse_mode markdown
+		--text "$(echo -e $bot_retorno)" \
+		--parse_mode markdown
 	return 0
 }
 # AJUDA
@@ -290,7 +290,7 @@ ajuda_fun() {
 	SSH3="$(less /etc/BOT-A/SSH20.log)"
 	SSH4="$(echo $SSH3)"
 	#ONLINES
-	ONLINES="$(less /etc/VPS-AGN/USRonlines)"
+	ONLINES="$(less /etc/T3MMA/USRonlines)"
 	##DEMOS REGISTRADOS
 	demo=$(cd /etc/BOT-TEMP && ls | wc -l)
 	cd
@@ -301,7 +301,7 @@ ajuda_fun() {
 	demor="$(echo $demo3)"
 
 	local bot_retorno="*$LINE* \n"
-	bot_retorno+="*🔰 MANAGER VPS-AGN 2.0 🔰* \n"
+	bot_retorno+="*🔰 MANAGER T3MMA 2.0 🔰* \n"
 	bot_retorno+="$LINE \n"
 	bot_retorno+="_▪️ SSH REGISTERED:_ ( *$SSH4* ) \n"
 	bot_retorno+="_▪️ CONNECTED:_ ( *$ONLINES* ) \n"
@@ -333,8 +333,8 @@ ajuda_fun() {
 	bot_retorno+="/ADMIN -->> Release the bot \n"
 	bot_retorno+="$LINE \n"
 	ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-	--text "$(echo -e $bot_retorno)" \
-	--parse_mode markdown
+		--text "$(echo -e $bot_retorno)" \
+		--parse_mode markdown
 	return 0
 }
 info_fun() {
@@ -344,16 +344,16 @@ info_fun() {
 		bot_retorno="The Users to Follow Does not contain any information \n"
 		bot_retorno+="$LINE \n"
 		ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-		--text "$(echo -e $bot_retorno)" \
-		--parse_mode markdown
+			--text "$(echo -e $bot_retorno)" \
+			--parse_mode markdown
 	else
 		VPSsec=$(date +%s)
 		local bot_retorno="$LINE \n"
 		bot_retorno+="* Registered SSH Accounts*  \n"
 		bot_retorno+="$LINE \n"
 		ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-		--text "$(echo -e $bot_retorno)" \
-		--parse_mode markdown
+			--text "$(echo -e $bot_retorno)" \
+			--parse_mode markdown
 		for user in $(mostrar_usuarios); do
 			sen=$(cat ${USRdatabase} | grep -w "$user" | cut -d '|' -f2)
 			[[ -z $sen ]] && sen="???"
@@ -373,14 +373,14 @@ info_fun() {
 			bot_retorno+="$(fun_trans "Limit"): $limit \n"
 			bot_retorno+="$LINE \n"
 			ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-			--text "$(echo -e $bot_retorno)" \
-			--parse_mode markdown
+				--text "$(echo -e $bot_retorno)" \
+				--parse_mode markdown
 		done
 	fi
 	return 0
 }
 online_fun() {
-	MyTIME="${SCPusr}/time-VPS-AGN"
+	MyTIME="${SCPusr}/time-T3MMA"
 	[[ -e ${MyTIME} ]] && source ${MyTIME} || touch ${MyTIME}
 	local bot_retorno="$LINE \n"
 	bot_retorno+="$* User Monitor*  \n"
@@ -408,16 +408,16 @@ online_fun() {
 		bot_retorno+="$(fun_trans "Total Time"): $HOUR \n"
 		bot_retorno+="$LINE \n"
 		ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-		--text "$(echo -e $bot_retorno)" \
-		--parse_mode markdown
+			--text "$(echo -e $bot_retorno)" \
+			--parse_mode markdown
 	done <<<"$(mostrar_usuarios)"
 	[[ -z $IMPRIME ]] && {
 		local bot_retorno="$LINE \n"
 		bot_retorno+="$(fun_trans "No users online") \n"
 		bot_retorno+="$LINE \n"
 		ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-		--text "$(echo -e $bot_retorno)" \
-		--parse_mode markdown
+			--text "$(echo -e $bot_retorno)" \
+			--parse_mode markdown
 		return 0
 	}
 }
@@ -454,8 +454,8 @@ useradd_fun() {
 			;;
 		esac
 		ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-		--text "$(echo -e $bot_retorno)" \
-		--parse_mode markdown
+			--text "$(echo -e $bot_retorno)" \
+			--parse_mode markdown
 	}
 	usuarios_ativos=($(mostrar_usuarios))
 	[[ -z "$1" ]] && error_fun && return 0
@@ -498,8 +498,8 @@ useradd_fun() {
 		bot_retorno+="$(fun_trans "User Was Not Created") \n"
 		bot_retorno+="$LINE \n"
 		ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-		--text "$(echo -e $bot_retorno)" \
-		--parse_mode markdown
+			--text "$(echo -e $bot_retorno)" \
+			--parse_mode markdown
 		return 0
 	else
 		local bot_retorno="$LINE \n"
@@ -511,8 +511,8 @@ useradd_fun() {
 		bot_retorno+="Limit: $4 Logeo \n"
 		bot_retorno+="$LINE \n"
 		ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-		--text "$(echo -e $bot_retorno)" \
-		--parse_mode markdown
+			--text "$(echo -e $bot_retorno)" \
+			--parse_mode markdown
 		return 0
 	fi
 }
@@ -526,8 +526,8 @@ userdell_fun() {
 		bot_retorno+='delete admin \n'
 		bot_retorno+="$LINE \n"
 		ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-		--text "$(echo -e $bot_retorno)" \
-		--parse_mode markdown
+			--text "$(echo -e $bot_retorno)" \
+			--parse_mode markdown
 		return 0
 	}
 	[[ -z "$1" ]] && error_fun && return 0
@@ -536,16 +536,16 @@ userdell_fun() {
 		bot_retorno+="$Removed Successfully \n"
 		bot_retorno+="$LINE \n"
 		ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-		--text "$(echo -e $bot_retorno)" \
-		--parse_mode markdown
+			--text "$(echo -e $bot_retorno)" \
+			--parse_mode markdown
 		return 0
 	} || {
 		local bot_retorno="$LINE \n"
 		bot_retorno+="User Not Removed \n"
 		bot_retorno+="$LINE \n"
 		ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-		--text "$(echo -e $bot_retorno)" \
-		--parse_mode markdown
+			--text "$(echo -e $bot_retorno)" \
+			--parse_mode markdown
 		return 0
 	}
 }
@@ -715,8 +715,8 @@ paygen_fun() {
 		bot_retorno+="$(fun_trans "Connection Methods") \n${LINE} \n1-REALDATA, 2-NETDATA, 3-RAW \n"
 		bot_retorno+="$LINE \n"
 		ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-		--text "$(echo -e $bot_retorno)" \
-		--parse_mode markdown
+			--text "$(echo -e $bot_retorno)" \
+			--parse_mode markdown
 		unset bot_retorno
 		return 0
 	}
@@ -758,11 +758,11 @@ paygen_fun() {
 		bot_retorno+="$(fun_trans "SUCCESSFULLY GENERATED PAYLOADS") \n"
 		bot_retorno+="$LINE \n"
 		ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-		--text "$(echo -e $bot_retorno)" \
-		--parse_mode markdown
+			--text "$(echo -e $bot_retorno)" \
+			--parse_mode markdown
 		local bot_retorno2
 		ShellBot.sendDocument --chat_id ${message_chat_id[$id]} \
-		--document @$HOME/Payloads.txt
+			--document @$HOME/Payloads.txt
 		return 0
 	else
 		local bot_retorno="$LINE \n"
@@ -770,8 +770,8 @@ paygen_fun() {
 		bot_retorno+="$(fun_trans "Some Error") \n"
 		bot_retorno+="$LINE \n"
 		ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-		--text "$(echo -e $bot_retorno)" \
-		--parse_mode markdown
+			--text "$(echo -e $bot_retorno)" \
+			--parse_mode markdown
 		return 0
 	fi
 }
@@ -783,8 +783,8 @@ scan_fun() {
 		bot_retorno+="Example: /scan www.host.com \n"
 		bot_retorno+="$LINE \n"
 		ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-		--text "$(echo -e $bot_retorno)" \
-		--parse_mode markdown
+			--text "$(echo -e $bot_retorno)" \
+			--parse_mode markdown
 		return 0
 	}
 	[[ -z $1 ]] && error_fun && return 0
@@ -795,23 +795,23 @@ scan_fun() {
 		bot_retorno+="$(fun_trans "No Host Found in Domain"): ${1} \n"
 		bot_retorno+="$LINE \n"
 		ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-		--text "$(echo -e $bot_retorno)" \
-		--parse_mode markdown
+			--text "$(echo -e $bot_retorno)" \
+			--parse_mode markdown
 		return 0
 	else
 		i=1
 		local bot_retorno="$LINE \n"
 		bot_retorno+="$(fun_trans "SUBDOMAINS FOUND") \n$LINE \n"
 		ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-		--text "$(echo -e $bot_retorno)" \
-		--parse_mode markdown
+			--text "$(echo -e $bot_retorno)" \
+			--parse_mode markdown
 		unset bot_retorno
 		while read hostreturn; do
 			local bot_retorno+="$hostreturn \n"
 			if [[ $i -gt 20 ]]; then
 				ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-				--text "*$(echo -e $bot_retorno)*" \
-				--parse_mode markdown
+					--text "*$(echo -e $bot_retorno)*" \
+					--parse_mode markdown
 				unset bot_retorno
 				unset i
 			fi
@@ -819,8 +819,8 @@ scan_fun() {
 		done <<<"$RETURN"
 		[[ ! -z $bot_retorno ]] && {
 			ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-			--text "*$(echo -e $bot_retorno)*" \
-			--parse_mode markdown
+				--text "*$(echo -e $bot_retorno)*" \
+				--parse_mode markdown
 		}
 	fi
 }
@@ -846,11 +846,11 @@ openadd_fun() {
 	bot_retorno+="$(fun_trans "SUCCESSFULLY GENERATED OPENVPN FILE") \n"
 	bot_retorno+="$LINE \n"
 	ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-	--text "$(echo -e $bot_retorno)" \
-	--parse_mode markdown
+		--text "$(echo -e $bot_retorno)" \
+		--parse_mode markdown
 	local bot_retorno2
 	ShellBot.sendDocument --chat_id ${message_chat_id[$id]} \
-	--document @$HOME/$client.ovpn
+		--document @$HOME/$client.ovpn
 	rm $HOME/$client.ovpn
 	return 0
 }
@@ -861,8 +861,8 @@ cript_fun() {
 		bot_retorno+="/criptar texto_for_cript \n"
 		bot_retorno+="$LINE \n"
 		ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-		--text "_$(echo -e $bot_retorno)_" \
-		--parse_mode markdown
+			--text "_$(echo -e $bot_retorno)_" \
+			--parse_mode markdown
 		return 0
 	else
 		local array=($@)
@@ -904,12 +904,12 @@ cript_fun() {
 		bot_retorno+="$(fun_trans "YOUR TEXT ENCRYPTED OR DECRYPTED"): \n"
 		bot_retorno+="$LINE \n"
 		ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-		--text "*$(echo -e $bot_retorno)*" \
-		--parse_mode markdown
+			--text "*$(echo -e $bot_retorno)*" \
+			--parse_mode markdown
 		local bot_retorno="$returntxt \n"
 		ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-		--text "_$(echo -e $bot_retorno)_" \
-		--parse_mode markdown
+			--text "_$(echo -e $bot_retorno)_" \
+			--parse_mode markdown
 	fi
 }
 language_fun() {
@@ -921,8 +921,8 @@ language_fun() {
 		bot_retorno+="/lang is Hello \n"
 		bot_retorno+="$LINE \n"
 		ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-		--text "_$(echo -e $bot_retorno)_" \
-		--parse_mode markdown
+			--text "_$(echo -e $bot_retorno)_" \
+			--parse_mode markdown
 		return 0
 	else
 		local array=($@)
@@ -935,12 +935,12 @@ language_fun() {
 		bot_retorno+="* Your Translation: * \n"
 		bot_retorno+="$LINE \n"
 		ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-		--text "*$(echo -e $bot_retorno)*" \
-		--parse_mode markdown
+			--text "*$(echo -e $bot_retorno)*" \
+			--parse_mode markdown
 		bot_retorno="$(echo $RETORNO | sed -e 's/[^a-z0-9 -]//ig') \n"
 		ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-		--text "_$(echo -e $bot_retorno)_" \
-		--parse_mode markdown
+			--text "_$(echo -e $bot_retorno)_" \
+			--parse_mode markdown
 		return 0
 	fi
 }
@@ -950,8 +950,8 @@ teste_fun() {
 	bot_retorno+="$(fun_trans "ARGUMENTS"): ${comando[@]} \n"
 	bot_retorno+="$LINE \n"
 	ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-	--text "_$(echo -e $bot_retorno)_" \
-	--parse_mode markdown
+		--text "_$(echo -e $bot_retorno)_" \
+		--parse_mode markdown
 	#local bot_retorno="$LINE \n"
 	#          bot_retorno+="$(fun_trans "ESSE USUARIO"): ${chatuser} \n"
 	#          bot_retorno+="$(fun_trans "ESSES ARGUMENTOS"): ${comando[@]} \n"
@@ -973,8 +973,8 @@ renew_user_fun() {
 		bot_retorno+="/renew CARLOS 30 \n"
 		bot_retorno+="*$LINE* \n"
 		ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-		--text "$(echo -e $bot_retorno)" \
-		--parse_mode markdown
+			--text "$(echo -e $bot_retorno)" \
+			--parse_mode markdown
 		unset bot_retorno
 		return 0
 	}
@@ -985,15 +985,15 @@ renew_user_fun() {
 		bot_retorno+="*❗️ UNREGISTERED USER  ❗️* \n"
 		bot_retorno+="*$LINE* \n"
 		ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-		--text "$(echo -e $bot_retorno)" \
-		--parse_mode markdown
+			--text "$(echo -e $bot_retorno)" \
+			--parse_mode markdown
 
 		return 0
 	}
 
 	[[ -z $1 ]] && error_fun && return 0
 	cup1="$1"
-	userva="$(cat /etc/VPS-AGN/VPS-AGNuser | grep -w "$cup1" | cut -d'|' -f1)"
+	userva="$(cat /etc/T3MMA/T3MMAuser | grep -w "$cup1" | cut -d'|' -f1)"
 
 	[[ -z $userva ]] && error_fun && return 0
 
@@ -1010,9 +1010,9 @@ renew_user_fun() {
 		done
 	}
 
-	NOM=$(less /etc/VPS-AGN/controller/nombre.log) >/dev/null 2>&1
+	NOM=$(less /etc/T3MMA/controller/nombre.log) >/dev/null 2>&1
 	NOM1=$(echo $NOM) >/dev/null 2>&1
-	IP="$(cat /etc/VPS-AGN/MEUIPvps)"
+	IP="$(cat /etc/T3MMA/MEUIPvps)"
 
 	local bot_retorno="*$LINE* \n"
 	bot_retorno+="*ACCOUNT RENEWED*  \n"
@@ -1025,8 +1025,8 @@ renew_user_fun() {
 	bot_retorno+="▪️ _IP:_ *$IP*  \n"
 	bot_retorno+="*$LINE* \n"
 	ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-	--text "$(echo -e $bot_retorno)" \
-	--parse_mode markdown
+		--text "$(echo -e $bot_retorno)" \
+		--parse_mode markdown
 
 }
 
@@ -1042,8 +1042,8 @@ info_sshp() {
 		bot_retorno+="_Example: /SSHI AGNVPS-xzcmo _ \n"
 		bot_retorno+="*$LINE* \n"
 		ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-		--text "$(echo -e $bot_retorno)" \
-		--parse_mode markdown
+			--text "$(echo -e $bot_retorno)" \
+			--parse_mode markdown
 		return 0
 	}
 
@@ -1051,16 +1051,16 @@ info_sshp() {
 
 	VPSsec=$(date +%s)
 
-	sen=$(cat /etc/VPS-AGN/VPS-AGNuser | grep -w "$1" | cut -d '|' -f2)
+	sen=$(cat /etc/T3MMA/T3MMAuser | grep -w "$1" | cut -d '|' -f2)
 	[[ -z $sen ]] && sen="???"
-	DateExp="$(cat /etc/VPS-AGN/VPS-AGNuser | grep -w "$1" | cut -d'|' -f3)"
+	DateExp="$(cat /etc/T3MMA/T3MMAuser | grep -w "$1" | cut -d'|' -f3)"
 	if [[ ! -z $DateExp ]]; then
 		DataSec=$(date +%s --date="$DateExp")
 		[[ "$VPSsec" -gt "$DataSec" ]] && EXPTIME="${red}[EXPIRADA]" || EXPTIME="${gren}[$(($(($DataSec - $VPSsec)) / 86400))]"
 	else
 		EXPTIME="???"
 	fi
-	limit=$(cat /etc/VPS-AGN/VPS-AGNuser | grep -w "$1" | cut -d '|' -f4)
+	limit=$(cat /etc/T3MMA/T3MMAuser | grep -w "$1" | cut -d '|' -f4)
 	[[ -z $limit ]] && limit="???"
 
 	local bot_retorno="*$LINE* \n"
@@ -1072,8 +1072,8 @@ info_sshp() {
 	bot_retorno+="▪️ User Limit: *$limit * \n"
 	bot_retorno+="*$LINE* \n"
 	ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-	--text "$(echo -e $bot_retorno)" \
-	--parse_mode markdown
+		--text "$(echo -e $bot_retorno)" \
+		--parse_mode markdown
 
 	return 0
 }
@@ -1123,19 +1123,19 @@ blo_unb_fun() {
 		bot_retorno+="_Example: unblock Ale2020 _ \n"
 		bot_retorno+="*$LINE* \n"
 		ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-		--text "$(echo -e $bot_retorno)" \
-		--parse_mode markdown
+			--text "$(echo -e $bot_retorno)" \
+			--parse_mode markdown
 		return 0
 	}
 
 	[[ -z $1 ]] && error_fun && return 0
-	local USRloked="/etc/VPS-AGN/VPS-AGN-userlock"
+	local USRloked="/etc/T3MMA/T3MMA-userlock"
 	local LIMITERLOG="${USRdatabase}/Limiter.log"
 	local LIMITERLOG2="${USRdatabase}/Limiter2.log"
 	if [[ $2 = "-loked" ]]; then
 		[[ $(cat ${USRloked} | grep -w "$1") ]] && return 1
 		echo " $1 (BLOCK-MULTILOGIN) $(date +%r--%d/%m/%y)"
-		limseg="$(less /etc/VPS-AGN/controller/tiemdes.log)"
+		limseg="$(less /etc/T3MMA/controller/tiemdes.log)"
 		KEY="2012880601:AAEJ3Kk18PGDzW57LpTMnVMn_pQYQKW3V9w"
 		URL="https://api.telegram.org/bot$KEY/sendMessage"
 		MSG="⚠️ VPS NOTICE: $NOM1 ⚠️
@@ -1155,8 +1155,8 @@ blo_unb_fun() {
 		bot_retorno+="▪️ _User:_ *$1 * _Unblocked_ \n"
 		bot_retorno+="*$LINE* \n"
 		ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-		--text "$(echo -e $bot_retorno)" \
-		--parse_mode markdown
+			--text "$(echo -e $bot_retorno)" \
+			--parse_mode markdown
 
 		[[ -e ${USRloked} ]] && {
 			newbase=$(cat ${USRloked} | grep -w -v "$1")
@@ -1191,8 +1191,8 @@ blo_unb_fun() {
 		bot_retorno+="▪️ _User:_ *$1 * _Blocked_ \n"
 		bot_retorno+="*$LINE* \n"
 		ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-		--text "$(echo -e $bot_retorno)" \
-		--parse_mode markdown
+			--text "$(echo -e $bot_retorno)" \
+			--parse_mode markdown
 		#notifi &>/dev/null
 		return 0
 	fi
@@ -1203,30 +1203,30 @@ blo_unb_fun() {
 
 userblock_lee() {
 
-	local HOST="/etc/VPS-AGN/VPS-AGN-userlock"
+	local HOST="/etc/T3MMA/T3MMA-userlock"
 	local RETURN=$(cat $HOST)
 	if [[ -z $RETURN ]]; then
 		local bot_retorno="$LINE \n"
 		bot_retorno+="NO USER BLOCKED \n"
 		bot_retorno+="$LINE \n"
 		ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-		--text "$(echo -e $bot_retorno)" \
-		--parse_mode markdown
+			--text "$(echo -e $bot_retorno)" \
+			--parse_mode markdown
 		return 0
 	else
 		i=1
 		local bot_retorno="*$LINE* \n"
 		bot_retorno+="* ❌ BLOCKED USERS ❌* \n$LINE \n"
 		ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-		--text "$(echo -e $bot_retorno)" \
-		--parse_mode markdown
+			--text "$(echo -e $bot_retorno)" \
+			--parse_mode markdown
 		unset bot_retorno
 		while read hostreturn; do
 			local bot_retorno+="$hostreturn \n"
 			if [[ $i -gt 25 ]]; then
 				ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-				--text "*$(echo -e $bot_retorno)*" \
-				--parse_mode markdown
+					--text "*$(echo -e $bot_retorno)*" \
+					--parse_mode markdown
 				unset bot_retorno
 				unset i
 			fi
@@ -1234,8 +1234,8 @@ userblock_lee() {
 		done <<<"$RETURN"
 		[[ ! -z $bot_retorno ]] && {
 			ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-			--text "*$(echo -e $bot_retorno)*" \
-			--parse_mode markdown
+				--text "*$(echo -e $bot_retorno)*" \
+				--parse_mode markdown
 		}
 	fi
 
@@ -1243,8 +1243,8 @@ userblock_lee() {
 	bot_retorno+="THESE ARE USERS WITH BAN \n"
 	bot_retorno+="*$LINE* \n"
 	ShellBot.sendMessage --chat_id ${message_chat_id[$id]} \
-	--text "*$(echo -e $bot_retorno)*" \
-	--parse_mode markdown
+		--text "*$(echo -e $bot_retorno)*" \
+		--parse_mode markdown
 
 	return 0
 }
@@ -1254,18 +1254,18 @@ backups() {
 	bot_retorno+="ᨉUSER BACKUPᨉ \n"
 	bot_retorno+="$LINE \n"
 	ShellBot.sendMessage --chat_id $var \
-	--text "*$(echo -e $bot_retorno)*" \
-	--parse_mode markdown
-	cp ${USRdatabase} $HOME/VPS-AGN-Backup-User
+		--text "*$(echo -e $bot_retorno)*" \
+		--parse_mode markdown
+	cp ${USRdatabase} $HOME/T3MMA-Backup-User
 	ShellBot.sendDocument --chat_id $var \
-	--document @$HOME/VPS-AGN-Backup-User
+		--document @$HOME/T3MMA-Backup-User
 
-	#rm $HOME/VPS-AGN-Backup
+	#rm $HOME/T3MMA-Backup
 	return 0
 }
 
 restabackup() {
-	dirbackup="/root/VPS-AGN-Backup-User"
+	dirbackup="/root/T3MMA-Backup-User"
 	local msj
 	VPSsec=$(date +%s)
 	while read line; do
@@ -1274,8 +1274,8 @@ restabackup() {
 			msj="$nome [ERROR] \n"
 			[[ ! -z ${callback_query_message_chat_id[$id]} ]] && var=${callback_query_message_chat_id[$id]} || var=${message_chat_id[$id]}
 			ShellBot.sendMessage --chat_id $var \
-			--text "*$(echo -e $msj)*" \
-			--parse_mode markdown
+				--text "*$(echo -e $msj)*" \
+				--parse_mode markdown
 			continue
 		}
 
@@ -1288,8 +1288,8 @@ restabackup() {
 		add_user "$nome" "$senha" "$dias" "$limite" &>/dev/null && msj="$nome [VALID ACCOUNT] \n" || msj="$nome [INVALID ACCOUNT EXPIRED DATE] \n"
 		[[ ! -z ${callback_query_message_chat_id[$id]} ]] && var=${callback_query_message_chat_id[$id]} || var=${message_chat_id[$id]}
 		ShellBot.sendMessage --chat_id $var \
-		--text "*$(echo -e $msj)*" \
-		--parse_mode markdown
+			--text "*$(echo -e $msj)*" \
+			--parse_mode markdown
 	done <${dirbackup}
 	return 0
 }

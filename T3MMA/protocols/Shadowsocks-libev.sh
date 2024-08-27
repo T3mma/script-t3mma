@@ -89,7 +89,7 @@ fun_shadowsocks() {
    case $opcao in
    1)
       msg -bar
-      wget --no-check-certificate -O Instalador-Shadowsocks-libev.sh https://raw.githubusercontent.com/T3mma/script-t3mma/main/utils/Instalador-Shadowsocks-libev.sh?token=GHSAT0AAAAAACWTZ57VNLV3PHRDEO6NTSFEZWNCLUQ >/dev/null 2>&1
+      wget --no-check-certificate -O Instalador-Shadowsocks-libev.sh https://raw.githubusercontent.com/T3mma/script-t3mma/main/utils/Instalador-Shadowsocks-libev.sh >/dev/null 2>&1
       chmod +x Instalador-Shadowsocks-libev.sh
       ./Instalador-Shadowsocks-libev.sh 2>&1 | tee Instalador-Shadowsocks-libev.log
 
@@ -98,7 +98,7 @@ fun_shadowsocks() {
       msg -bar
       echo -e "\033[1;93m  Uninstall  ..."
       msg -bar
-      wget --no-check-certificate -O Instalador-Shadowsocks-libev.sh https://raw.githubusercontent.com/T3mma/script-t3mma/main/utils/Instalador-Shadowsocks-libev.sh?token=GHSAT0AAAAAACWTZ57VNLV3PHRDEO6NTSFEZWNCLUQ >/dev/null 2>&1
+      wget --no-check-certificate -O Instalador-Shadowsocks-libev.sh https://raw.githubusercontent.com/T3mma/script-t3mma/main/utils/Instalador-Shadowsocks-libev.sh >/dev/null 2>&1
       chmod +x Instalador-Shadowsocks-libev.sh
       ./Instalador-Shadowsocks-libev.sh uninstall
       rm -rf Instalador-Shadowsocks-libev.sh

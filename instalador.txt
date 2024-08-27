@@ -1,1 +1,1 @@
-rm -rf install.sh; apt update; apt install curl; apt install bc; wget https://raw.githubusercontent.com/T3mma/script-t3mma/main/install.sh?token=GHSAT0AAAAAACWTZ57UAAEJJVWWK2AJQJICZWNCQ2A; chmod 777 install.sh; ./install.sh --start
+rm -rf install.sh; apt update; apt install curl; apt install bc; wget https://raw.githubusercontent.com/T3mma/script-t3mma/main/install.sh; chmod 777 install.sh; ./install.sh --start

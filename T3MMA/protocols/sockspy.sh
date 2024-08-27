@@ -1,5 +1,5 @@
 #!/bin/bash
-#25/01/2021 by @KhaledAGN
+#25/01/2021 by @T3MMA
 clear
 clear
 SCPdir="/etc/T3MMA"
@@ -39,7 +39,7 @@ tcpbypass_fun() {
     rm -rf $HOME/root/socks
     cd $HOME
     msg="$2"
-    [[ $msg = "" ]] && msg="@KhaledAGN"
+    [[ $msg = "" ]] && msg="@T3MMA"
     portxz="$1"
     [[ $portxz = "" ]] && portxz="8080"
     screen -dmS sokz scktcheck "$portxz" "$msg" >/dev/null 2>&1
@@ -55,7 +55,7 @@ gettunel_fun() {
         echo -e "$(fun_trans "Gettunel Started with Success")"
         msg -bar
         echo -ne "$(fun_trans "Your Gettunnel Password and"):"
-        echo -e "\033[1;32m KhaledAGN"
+        echo -e "\033[1;32m T3MMA"
         msg -bar
     } || echo -e "$(fun_trans "Gettunnel not started")"
     msg -bar

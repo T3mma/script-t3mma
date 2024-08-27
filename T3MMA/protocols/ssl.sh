@@ -1,5 +1,5 @@
 #!/bin/bash
-#25/01/2021 by @KhaledAGN
+#25/01/2021 by @T3MMA
 clear
 clear
 SCPdir="/etc/T3MMA"
@@ -157,7 +157,7 @@ ssl_stunel_3() {
     clear
     msg -bar
     msg -tit
-    echo -e "\033[1;93m      SSL + PYDIRECT  \033[1;94m By @AleSosaCreaciones "
+    echo -e "\033[1;93m      SSL + PYDIRECT  \033[1;94m By @T3MMA "
     msg -bar
     echo -e "\033[1;91m You must have port 22 SSH and free (80 y 443)"
     msg -bar
@@ -196,7 +196,7 @@ clear
 msg -bar
 msg -bar3
 msg -tit
-echo -e "${cor[3]}       MONO AND MULTI SSL INSTALLER By @KhaledAGN"
+echo -e "${cor[3]}       MONO AND MULTI SSL INSTALLER By @T3MMA"
 msg -bar
 echo -e "${cor[1]}            Choose the desired option."
 msg -bar

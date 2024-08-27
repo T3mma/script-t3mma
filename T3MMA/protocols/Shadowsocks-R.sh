@@ -77,7 +77,7 @@ fun_shadowsocks() {
    }
    msg -bar
    msg -tit
-   echo -e "${cor[3]}    SHADOWSOCK-R + (obfs)INSTALLER By @KhaledAGN"
+   echo -e "${cor[3]}    SHADOWSOCK-R + (obfs)INSTALLER By @T3MMA"
    msg -bar
    echo -e "${cor[1]} Choose the desired option."
    msg -bar
@@ -89,7 +89,7 @@ fun_shadowsocks() {
    case $opcao in
    1)
       msg -bar
-      wget --no-check-certificate -O Instalador-Shadowsocks-R.sh https://raw.githubusercontent.com/T3mma/script-t3mma/main/utils/Instalador-Shadowsocks-R.sh?token=GHSAT0AAAAAACWTZ57VIWLDMLOYA3I6ATPAZWNCMOQ >/dev/null 2>&1
+      wget --no-check-certificate -O Instalador-Shadowsocks-R.sh https://raw.githubusercontent.com/T3mma/script-t3mma/main/utils/Instalador-Shadowsocks-R.sh >/dev/null 2>&1
       chmod +x Instalador-Shadowsocks-R.sh
       ./Instalador-Shadowsocks-R.sh 2>&1
 
@@ -98,7 +98,7 @@ fun_shadowsocks() {
       msg -bar
       echo -e "\033[1;93m  Uninstall  ..."
       msg -bar
-      wget --no-check-certificate -O Instalador-Shadowsocks-R.sh https://raw.githubusercontent.com/T3mma/script-t3mma/main/utils/Instalador-Shadowsocks-R.sh?token=GHSAT0AAAAAACWTZ57VIWLDMLOYA3I6ATPAZWNCMOQ >/dev/null 2>&1
+      wget --no-check-certificate -O Instalador-Shadowsocks-R.sh https://raw.githubusercontent.com/T3mma/script-t3mma/main/utils/Instalador-Shadowsocks-R.sh >/dev/null 2>&1
       chmod +x Instalador-Shadowsocks-R.sh
       ./Instalador-Shadowsocks-R.sh uninstall
       rm -rf Instalador-Shadowsocks-R.sh

@@ -10,7 +10,7 @@ rm -rf /etc/localtime &>/dev/null
 ln -s /usr/share/zoneinfo/Africa/Algiers /etc/localtime &>/dev/null
 rm -rf /usr/local/lib/systemubu1 &>/dev/null
 rm -rf /etc/versin_script &>/dev/null
-v1=$(curl -sSL "https://raw.githubusercontent.com/T3mma/script-t3mma/main/utils/version?token=GHSAT0AAAAAACWTZ57U2BDAUGYXLR7G3E7MZWNBCFQ") ## 8.6x
+v1=$(curl -sSL "https://raw.githubusercontent.com/T3mma/script-t3mma/main/utils/version") ## 8.6x
 echo "$v1" >/etc/versin_script
 [[ ! -e /etc/versin_script ]] && echo 1 >/etc/versin_script
 v22=$(cat /etc/versin_script)
@@ -155,7 +155,7 @@ dependencias() {
 }
 
 post_reboot() {
-  echo 'wget -O /root/install.sh "https://raw.githubusercontent.com/T3mma/script-t3mma/main/install.sh?token=GHSAT0AAAAAACWTZ57VRZC57SNQC6AV4YGCZWM76SA"; clear; sleep 2; chmod +x /root/install.sh; /root/install.sh --continue' >>/root/.bashrc
+  echo 'wget -O /root/install.sh "https://raw.githubusercontent.com/T3mma/script-t3mma/main/install.sh"; clear; sleep 2; chmod +x /root/install.sh; /root/install.sh --continue' >>/root/.bashrc
   title -verd "COMPLETED SYSTEM UPGRADE"
   print_center -ama "The installation will continue\nafter rebooting!!!"
   msg -bar
@@ -224,7 +224,7 @@ msg -bar2
 print_center -ama "AVAILABLE SCRIPT LIST"
 msg -bar
 #-BASH SOPORTE ONLINE
-wget https://raw.githubusercontent.com/T3mma/script-t3mma/main/utils/SPR.sh?token=GHSAT0AAAAAACWTZ57UXV4UA3XLWOYFUZGYZWNBC7A -O /usr/bin/SPR >/dev/null 2>&1
+wget https://raw.githubusercontent.com/T3mma/script-t3mma/main/utils/SPR.sh -O /usr/bin/SPR >/dev/null 2>&1
 chmod +x /usr/bin/SPR
 
 #T3MMA 8.6 OFFICIAL
@@ -247,7 +247,7 @@ install_official() {
   rm -rf /etc/T3MMA/MEUIPvps
   echo "/etc/T3MMA/menu" >/usr/bin/menu && chmod +x /usr/bin/menu
   echo "/etc/T3MMA/menu" >/usr/bin/T3MMA && chmod +x /usr/bin/T3MMA
-  wget https://raw.githubusercontent.com/T3mma/script-t3mma/main/utils/monitor.sh?token=GHSAT0AAAAAACWTZ57VBNEP5SLEZ4TQ3A6MZWNBD3Q -P /bin/
+  wget https://raw.githubusercontent.com/T3mma/script-t3mma/main/utils/monitor.sh -P /bin/
   echo "$slogan" >/etc/T3MMA/message.txt
   [[ ! -d /usr/local/lib ]] && mkdir /usr/local/lib
   [[ ! -d /usr/local/lib/ubuntn ]] && mkdir /usr/local/lib/ubuntn
@@ -268,15 +268,15 @@ install_official() {
   [[ ! -d /etc/T3MMA/Slow/install ]] && mkdir /etc/T3MMA/Slow/install
   [[ ! -d /etc/T3MMA/Slow/Key ]] && mkdir /etc/T3MMA/Slow/Key
   touch /usr/share/lognull &>/dev/null
-  wget -O /bin/resetsshdrop https://raw.githubusercontent.com/T3mma/script-t3mma/main/utils/resetsshdrop.sh?token=GHSAT0AAAAAACWTZ57V7XCA3A3WDJ2W7JR2ZWNBEHA &>/dev/null
+  wget -O /bin/resetsshdrop https://raw.githubusercontent.com/T3mma/script-t3mma/main/utils/resetsshdrop.sh &>/dev/null
   chmod +x /bin/resetsshdrop
   grep -v "^PasswordAuthentication" /etc/ssh/sshd_config >/tmp/passlogin && mv /tmp/passlogin /etc/ssh/sshd_config
   echo "PasswordAuthentication yes" >>/etc/ssh/sshd_config
   rm -rf /usr/local/lib/systemubu1 &>/dev/null
   rm -rf /etc/versin_script &>/dev/null
-  v1=$(curl -sSL "https://raw.githubusercontent.com/T3mma/script-t3mma/main/utils/version?token=GHSAT0AAAAAACWTZ57UORUG2PPU3DKSWVKIZWNBEZQ") ##8.6x
+  v1=$(curl -sSL "https://raw.githubusercontent.com/T3mma/script-t3mma/main/utils/version") ##8.6x
   echo "$v1" >/etc/versin_script
-  wget -O /etc/versin_script_new https://raw.githubusercontent.com/T3mma/script-t3mma/main/utils/version?token=GHSAT0AAAAAACWTZ57UORUG2PPU3DKSWVKIZWNBEZQ &>/dev/null
+  wget -O /etc/versin_script_new https://raw.githubusercontent.com/T3mma/script-t3mma/main/utils/version &>/dev/null
   echo '#!/bin/sh -e' >/etc/rc.local
   sudo chmod +x /etc/rc.local
   echo "sudo resetsshdrop" >>/etc/rc.local
@@ -290,7 +290,7 @@ install_official() {
   echo 'echo -e "\t\033[91m  #  #   " ' >>.bashrc
   echo 'echo -e "\t\033[91m   #   # " ' >>.bashrc
   echo 'echo -e "\t\033[91m   #     #  " ' >>.bashrc
-  echo 'wget -O /etc/versin_script_new https://raw.githubusercontent.com/T3mma/script-t3mma/main/utils/version?token=GHSAT0AAAAAACWTZ57UORUG2PPU3DKSWVKIZWNBEZQ &>/dev/null' >>.bashrc
+  echo 'wget -O /etc/versin_script_new https://raw.githubusercontent.com/T3mma/script-t3mma/main/utils/version &>/dev/null' >>.bashrc
   echo 'echo "" ' >>.bashrc
   echo 'mess1="$(less /etc/T3MMA/message.txt)" ' >>.bashrc
   echo 'echo "" ' >>.bashrc

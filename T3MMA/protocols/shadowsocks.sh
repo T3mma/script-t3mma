@@ -78,7 +78,7 @@ fun_shadowsocks() {
       while true; do
             msg -bar
             msg -tit
-            msg -ama "        SHADOWSOCKS INSTALLER By @KhaledAGN"
+            msg -ama "        SHADOWSOCKS INSTALLER By @T3MMA"
             msg -bar
             echo -e "\033[1;33m $(fun_trans ${id} "Select a Crypto")"
             msg -bar

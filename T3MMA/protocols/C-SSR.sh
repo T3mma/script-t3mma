@@ -1206,7 +1206,7 @@ Modify_port() {
 Modify_Config() {
 	clear
 	SSR_installation_status
-	echo && echo -e "    ###¿What do you want to do??###Mod By @KhaledAGN
+	echo && echo -e "    ###¿What do you want to do??###Mod By @T3MMA
 $(msg -bar)
  ${Green_font_prefix}1.${Font_color_suffix}  Add and Configure User
  ${Green_font_prefix}2.${Font_color_suffix}  Delete User Settings

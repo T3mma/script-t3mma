@@ -3,7 +3,7 @@
 clear
 clear
 declare -A cor=([0]="\033[1;37m" [1]="\033[1;34m" [2]="\033[1;31m" [3]="\033[1;33m" [4]="\033[1;32m")
-SCPdir="/etc/VPS-AGN" && [[ ! -d ${SCPdir} ]] && exit 1
+SCPdir="/etc/T3MMA" && [[ ! -d ${SCPdir} ]] && exit 1
 SCPusr="${SCPdir}/controller" && [[ ! -d ${SCPusr} ]] && mkdir ${SCPusr}
 SCPfrm="${SCPdir}/tools" && [[ ! -d ${SCPfrm} ]] && mkdir ${SCPfrm}
 SCPinst="${SCPdir}/protocols" && [[ ! -d ${SCPfrm} ]] && mkdir ${SCPfrm}
@@ -15,7 +15,7 @@ fun_ip() {
 IP="$(fun_ip)"
 msg -bar
 msg -tit
-echo -e "\033[1;96m           File Manager FTP VPS•AGN"
+echo -e "\033[1;96m           File Manager FTP T3MMA"
 msg -bar
 echo -e "${cor[4]} [1] >${cor[3]} $(fun_trans "Place File Online")"
 echo -e "${cor[4]} [2] >${cor[3]} $(fun_trans "Online File Remover")"

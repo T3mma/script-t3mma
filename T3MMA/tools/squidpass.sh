@@ -3,7 +3,7 @@
 clear
 clear
 declare -A cor=([0]="\033[1;37m" [1]="\033[1;34m" [2]="\033[1;31m" [3]="\033[1;33m" [4]="\033[1;32m")
-SCPdir="/etc/VPS-AGN" && [[ ! -d ${SCPdir} ]] && exit 1
+SCPdir="/etc/T3MMA" && [[ ! -d ${SCPdir} ]] && exit 1
 SCPusr="${SCPdir}/controller" && [[ ! -d ${SCPusr} ]] && mkdir ${SCPusr}
 SCPfrm="${SCPdir}/tools" && [[ ! -d ${SCPfrm} ]] && mkdir ${SCPfrm}
 SCPinst="${SCPdir}/protocols" && [[ ! -d ${SCPfrm} ]] && mkdir ${SCPfrm}
@@ -159,7 +159,7 @@ case $optons in
     squidpass
     ;;
 esac
-#REINICIANDO VPS-AGN (SQUID)
+#REINICIANDO T3MMA (SQUID)
 [[ "$1" = "1" ]] && squidpass
 ####_Eliminar_Tmps_####
 [[ -e $_tmp ]] && rm $_tmp
