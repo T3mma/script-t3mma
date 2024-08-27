@@ -156,8 +156,8 @@ dependencias() {
 
 post_reboot() {
   echo 'wget -O /root/install.sh "https://raw.githubusercontent.com/T3mma/script-t3mma/main/install.sh"; clear; sleep 2; chmod +x /root/install.sh; /root/install.sh --continue' >>/root/.bashrc
-  title -verd "COMPLETED SYSTEM UPGRADE"
-  print_center -ama "The installation will continue\nafter rebooting!!!"
+  title -verd "Actualización de Sistema Completado"
+  print_center -ama "La instalación continuará\ndespués del reinicio!!!"
   msg -bar
 }
 
@@ -166,7 +166,7 @@ install_start() {
 
   echo -e "\e[1;97m           \e[5m\033[1;100m   Actualización del Sistema   \033[1;37m"
   msg -bar
-  print_center -ama "Systema Actualizado.\n casi listo.\n"
+  print_center -ama "Actualización del Sistema.\n casi listo.\n"
   msg -bar3
   msg -ne "\n Vamos a  continuar? [Y/N]: "
   read opcion
@@ -244,7 +244,7 @@ install_official() {
   rm -rf T3MMA.tar.xz
   cd
   chmod -R 755 /etc/T3MMA
-  rm -rf /etc/T3MMA/MEUIPvps
+  #rm -rf /etc/T3MMA/MEUIPvps
   echo "/etc/T3MMA/menu" >/usr/bin/menu && chmod +x /usr/bin/menu
   echo "/etc/T3MMA/menu" >/usr/bin/T3MMA && chmod +x /usr/bin/T3MMA
   wget https://raw.githubusercontent.com/T3mma/script-t3mma/main/utils/monitor.sh -P /bin/
